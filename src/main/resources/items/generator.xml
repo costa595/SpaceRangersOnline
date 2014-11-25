@@ -1,0 +1,37 @@
+<generators>
+    <generator>
+        <id>39</id>
+        <name>Коротковолновый генератор защиты</name>
+        <block>5</block>
+        <price>7000</price>
+        <durability>200</durability>
+    </generator>
+    <generator>
+        <id>40</id>
+        <name>Поляризующий генератор защиты</name>
+        <block>10</block>
+        <price>30000</price>
+        <durability>500</durability>
+    </generator>
+    <generator>
+        <id>41</id>
+        <name>Мезонный генератор защиты</name>
+        <block>15</block>
+        <price>150000</price>
+        <durability>700</durability>
+    </generator>
+    <generator>
+        <id>42</id>
+        <name>Сетчатый генератор защиты</name>
+        <block>20</block>
+        <price>500000</price>
+        <durability>900</durability>
+    </generator>
+    <generator>
+        <id>43</id>
+        <name>Полигональный генератор защиты</name>
+        <block>25</block>
+        <price>1100000</price>
+        <durability>1200</durability>
+    </generator>
+</generators>

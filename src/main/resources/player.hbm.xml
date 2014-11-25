@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="table.Player" table="players">
+        <id name="id" column="id" type="java.lang.Integer">
+            <generator class="increment" />
+        </id>
+        <property name="login" column="login" type="java.lang.String"/>
+        <property name="pass" column="pass" type="java.lang.String"/>
+        <property name="mail" column="mail" type="java.lang.String"/>
+        <property name="avatar" column="avatar" type="java.lang.Integer"/>
+        <property name="admin" column="admin" type="java.lang.Integer"/>
+        <property name="race" column="race" type="java.lang.Integer"/>
+        <property name="x" column="x" type="java.lang.Float"/>
+        <property name="y" column="y" type="java.lang.Float"/>
+        <property name="system" column="system" type="java.lang.Integer"/>
+        <property name="rank" column="rank" type="java.lang.Integer"/>
+        <property name="cr" column="cr" type="java.lang.Integer"/>
+        <property name="kr" column="kr" type="java.lang.Integer"/>
+        <property name="w1" column="w1" type="java.lang.Integer"/>
+        <property name="w2" column="w2" type="java.lang.Integer"/>
+        <property name="w3" column="w3" type="java.lang.Integer"/>
+        <property name="w4" column="w4" type="java.lang.Integer"/>
+        <property name="w5" column="w5" type="java.lang.Integer"/>
+        <property name="engine" column="engine" type="java.lang.Integer"/>
+        <property name="fuel" column="fuel" type="java.lang.Integer"/>
+        <property name="droid" column="droid" type="java.lang.Integer"/>
+        <property name="hook" column="hook" type="java.lang.Integer"/>
+        <property name="generator" column="generator" type="java.lang.Integer"/>
+        <property name="radar" column="radar" type="java.lang.Integer"/>
+        <property name="scaner" column="scaner" type="java.lang.Integer"/>
+        <property name="ship" column="ship" type="java.lang.Integer"/>
+    </class>
+</hibernate-mapping>

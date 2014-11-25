@@ -1,0 +1,82 @@
+<guns>
+    <gun>
+        <id>21</id>
+        <name>Промышленный лазер</name>
+        <min>2</min>
+        <max>5</max>
+        <radius>270</radius>
+        <recharge>5</recharge>
+        <price>100</price>
+        <durability>100</durability>
+    </gun>
+    <gun>
+        <id>22</id>
+        <name>Лезка</name>
+        <min>5</min>
+        <max>15</max>
+        <radius>300</radius>
+        <recharge>5</recharge>
+        <price>4000</price>
+        <durability>300</durability>
+    </gun>
+    <gun>
+        <id>23</id>
+        <name>Третон</name>
+        <min>10</min>
+        <max>20</max>
+        <radius>330</radius>
+        <recharge>5</recharge>
+        <price>20000</price>
+        <durability>400</durability>
+    </gun>
+    <gun>
+        <id>24</id>
+        <name>Волновой фазер</name>
+        <min>20</min>
+        <max>40</max>
+        <radius>350</radius>
+        <recharge>5</recharge>
+        <price>100000</price>
+        <durability>600</durability>
+    </gun>
+    <gun>
+        <id>25</id>
+        <name>Электронный резак</name>
+        <min>25</min>
+        <max>50</max>
+        <radius>380</radius>
+        <recharge>5</recharge>
+        <price>400000</price>
+        <durability>800</durability>
+    </gun>
+    <gun>
+        <id>26</id>
+        <name>Осколочное орудие</name>
+        <min>10</min>
+        <max>20</max>
+        <radius>250</radius>
+        <recharge>5</recharge>
+        <price>17000</price>
+        <durability>300</durability>
+    </gun>
+    <gun>
+        <id>27</id>
+        <name>Потоковый бластер</name>
+        <min>20</min>
+        <max>40</max>
+        <radius>300</radius>
+        <recharge>5</recharge>
+        <price>100000</price>
+        <durability>500</durability>
+    </gun>
+    <gun>
+        <id>28</id>
+        <name>Мультирезонатор</name>
+        <min>40</min>
+        <max>80</max>
+        <radius>350</radius>
+        <recharge>5</recharge>
+        <price>500000</price>
+        <durability>700</durability>
+    </gun>
+</guns>

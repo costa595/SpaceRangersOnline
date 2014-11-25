@@ -1,0 +1,37 @@
+<droids>
+    <droid>
+        <id>34</id>
+        <name>Биотический дроид</name>
+        <repair>10</repair>
+        <price>5000</price>
+        <durability>200</durability>
+    </droid>
+    <droid>
+        <id>35</id>
+        <name>Суспензорный дроид</name>
+        <repair>15</repair>
+        <price>25000</price>
+        <durability>500</durability>
+    </droid>
+    <droid>
+        <id>36</id>
+        <name>Трекинговый дроид</name>
+        <repair>20</repair>
+        <price>80000</price>
+        <durability>700</durability>
+    </droid>
+    <droid>
+        <id>37</id>
+        <name>Стволовой дроид</name>
+        <repair>30</repair>
+        <price>300000</price>
+        <durability>1000</durability>
+    </droid>
+    <droid>
+        <id>38</id>
+        <name>Болидный дроид</name>
+        <repair>45</repair>
+        <price>1000000</price>
+        <durability>1500</durability>
+    </droid>
+</droids>
