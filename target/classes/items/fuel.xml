@@ -1,0 +1,37 @@
+<fuels>
+    <fuel>
+        <id>29</id>
+        <name>Гипержидкостный топливный бак</name>
+        <capacity>20</capacity>
+        <price>80</price>
+        <durability>100</durability>
+    </fuel>
+    <fuel>
+        <id>30</id>
+        <name>Конденсатный топливный бак</name>
+        <capacity>30</capacity>
+        <price>4000</price>
+        <durability>400</durability>
+    </fuel>
+    <fuel>
+        <id>31</id>
+        <name>Редукционный топливный бак</name>
+        <capacity>50</capacity>
+        <price>20000</price>
+        <durability>700</durability>
+    </fuel>
+    <fuel>
+        <id>32</id>
+        <name>Протопузырчатый топливный бак</name>
+        <capacity>65</capacity>
+        <price>80000</price>
+        <durability>1000</durability>
+    </fuel>
+    <fuel>
+        <id>33</id>
+        <name>Позиционный топливный бак</name>
+        <capacity>80</capacity>
+        <price>500000</price>
+        <durability>1200</durability>
+    </fuel>
+</fuels>

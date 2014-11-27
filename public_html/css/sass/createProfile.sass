@@ -1,0 +1,304 @@
+@mixin transform_rotate($deg)
+    -moz-transform: rotate($deg) /* Для Firefox */
+    -ms-transform: rotate($deg) /* Для IE */
+    -webkit-transform: rotate($deg) /* Для Safari, Chrome, iOS */
+    -o-transform: rotate($deg) /* Для Opera */
+    transform: rotate($deg)
+
+.createProfile
+    background: url('/images/fonCreateProfile.jpg')
+    margin: 0 auto
+    display: block
+    width: 100%
+    height: 100%
+    background-size: cover
+
+    .windowCreateProfile
+        display: block
+        background: url('/images/createProfile.png')
+        width: 481px
+        height: 665px
+        position: absolute
+        //zoom: 0.8
+
+.button_choose_race
+    position: absolute
+    cursor: pointer
+
+.typeChooseRaceAndClass
+    font-size: 12px
+    color: #52e3dc
+    position: absolute
+    left: 209px
+    top: 28px
+    width: 70px
+    text-align: center
+
+#typeChooseRaceAndClass_class
+    top: 470px
+
+
+#race_malok.button_choose_race
+    top: 140px
+    left: 40px
+    background: url('/images/createprofile/race_button_malok.png')
+    &:hover
+        background: url('/images/createprofile/race_button_malok_active.png')
+    width: 107px
+    height: 95px
+
+
+    #race_malok_icon
+        background: url('/images/createprofile/race_malok.png')
+        width: 43px
+        height: 44px
+        position: absolute
+        top: 30px
+        left: 30px
+
+#race_malok.button_choose_race.choose_race
+    background: url('/images/createprofile/race_button_malok_active.png')
+
+#race_peleng.button_choose_race
+    top: 75px
+    left: 90px
+    width: 114px
+    height: 97px
+    background: url('/images/createprofile/race_button_peleng.png')
+    &:hover
+        background: url('/images/createprofile/race_button_peleng_active.png')
+
+    #race_peleng_icon
+        background: url('/images/createprofile/race_peleng.png')
+        width: 39px
+        height: 34px
+        position: absolute
+        top: 30px
+        left: 40px
+#race_peleng.button_choose_race.choose_race
+    background: url('/images/createprofile/race_button_peleng_active.png')
+
+#race_human.button_choose_race
+    top: 60px
+    left: 185px
+    width: 115px
+    height: 80px
+    background: url('/images/createprofile/race_button_human.png')
+    &:hover
+        background: url('/images/createprofile/race_button_human_active.png')
+
+    #race_human_icon
+        background: url('/images/createprofile/race_human.png')
+        width: 32px
+        height: 30px
+        position: absolute
+        top: 24px
+        left: 41px
+
+#race_human.button_choose_race.choose_race
+    background: url('/images/createprofile/race_button_human_active.png')
+
+#race_fainin.button_choose_race
+    top: 75px
+    left: 280px
+    width: 114px
+    height: 97px
+    background: url('/images/createprofile/race_button_fainin.png')
+    &:hover
+        background: url('/images/createprofile/race_button_fainin_active.png')
+    #race_fainin_icon
+        background: url('/images/createprofile/race_fainin.png')
+        width: 40px
+        height: 40px
+        position: absolute
+        top: 28px
+        left: 32px
+
+#race_fainin.button_choose_race.choose_race
+    background: url('/images/createprofile/race_button_fainin_active.png')
+
+#race_galec.button_choose_race
+    width: 107px
+    height: 95px
+    top: 140px
+    left: 333px
+    background: url('/images/createprofile/race_button_galec.png')
+    &:hover
+        background: url('/images/createprofile/race_button_galec_active.png')
+    #race_galec_icon
+        background: url('/images/createprofile/race_galec.png')
+        width: 40px
+        height: 33px
+        position: absolute
+        top: 37px
+        left: 35px
+
+#race_galec.button_choose_race.choose_race
+    background: url('/images/createprofile/race_button_galec_active.png')
+
+.button_choose_class
+    position: absolute
+    cursor: pointer
+
+#class_war.button_choose_class
+    width: 108px
+    height: 95px
+    top: 280px
+    left: 40px
+    background: url('/images/createprofile/class_button_war.png')
+    &:hover
+        background: url('/images/createprofile/class_button_war_active.png')
+    #class_war_icon
+        background: url('/images/createprofile/class_war.png')
+        width: 33px
+        height: 34px
+        position: absolute
+        top: 26px
+        left: 35px
+
+#class_war.button_choose_class.choose_class
+    background: url('/images/createprofile/class_button_war_active.png')
+
+#class_mercenary.button_choose_class
+    width: 112px
+    height: 96px
+    top: 345px
+    left: 90px
+    background: url('/images/createprofile/class_button_mercenary.png')
+    &:hover
+        background: url('/images/createprofile/class_button_mercenary_active.png')
+    #class_mercenary_icon
+        background: url('/images/createprofile/class_mercenary.png')
+        width: 33px
+        height: 34px
+        position: absolute
+        top: 28px
+        left: 42px
+
+#class_mercenary.button_choose_class.choose_class
+    background: url('/images/createprofile/class_button_mercenary_active.png')
+
+#class_trade.button_choose_class
+    width: 113px
+    height: 82px
+    top: 375px
+    left: 185px
+    background: url('/images/createprofile/class_button_trade.png')
+    &:hover
+        background: url('/images/createprofile/class_button_trade_active.png')
+    #class_trade_icon
+        background: url('/images/createprofile/class_trade.png')
+        width: 33px
+        height: 34px
+        position: absolute
+        top: 26px
+        left: 38px
+
+#class_trade.button_choose_class.choose_class
+    background: url('/images/createprofile/class_button_trade_active.png')
+
+#class_corsar.button_choose_class
+    width: 113px
+    height: 96px
+    top: 345px
+    left: 280px
+    background: url('/images/createprofile/class_button_corsar.png')
+    &:hover
+        background: url('/images/createprofile/class_button_corsar_active.png')
+    #class_corsar_icon
+        background: url('/images/createprofile/class_corsar.png')
+        width: 33px
+        height: 34px
+        position: absolute
+        top: 26px
+        left: 35px
+
+#class_corsar.button_choose_class.choose_class
+    background: url('/images/createprofile/class_button_corsar_active.png')
+
+#class_pirate.button_choose_class
+    width: 108px
+    height: 95px
+    top: 280px
+    left: 333px
+    background: url('/images/createprofile/class_button_pirate.png')
+    &:hover
+        background: url('/images/createprofile/class_button_pirate_active.png')
+    #class_pirate_icon
+        background: url('/images/createprofile/class_pirate.png')
+        width: 34px
+        height: 36px
+        position: absolute
+        top: 23px
+        left: 35px
+
+#class_pirate.button_choose_class.choose_class
+    background: url('/images/createprofile/class_button_pirate_active.png')
+
+.button_img_profile
+    width: 38px
+    height: 95px
+    position: absolute
+    top: 212px
+    cursor: pointer
+
+#left_button_img_profile.button_img_profile
+    left: 150px
+    background: url('/images/createprofile/button_left.png')
+    &:hover
+        background: url('/images/createprofile/button_left_hover.png')
+
+#right_button_img_profile.button_img_profile
+    left: 296px
+    background: url('/images/createprofile/button_right.png')
+    &:hover
+        background: url('/images/createprofile/button_right_hover.png')
+
+.img_choose_peson
+    width: 93px
+    height: 104px
+    position: absolute
+    left: 197px
+    top: 207px
+    background: url('/images/createprofile/photo_person.png')
+
+.apply
+    background: url('/images/createprofile/button_apply.png')
+    width: 48px
+    height: 21px
+    cursor: pointer
+    &:hover
+        background: url('/images/createprofile/button_apply_hover.png')
+    &:active
+        background: url('/images/createprofile/button_apply_click.png')
+
+.input_new_name_peson
+    border: 1px solid #65bbde
+    background: black
+    color: #e39e5b
+    text-align: center
+
+.new_name_peson
+    display: block
+    float: left
+    color: #5d8996
+    margin-right: 10px
+
+#apply_name_person
+    float: right
+
+.info_about_person
+    position: absolute
+    top: 560px
+    left: 130px
+    width: 280px
+    height: 80px
+    color: #6bd9cc
+    font-size: 12px
+
+.wrap_apply_name_person
+    position: absolute
+    width: 260px
+    top: 520px
+    left: 150px
+

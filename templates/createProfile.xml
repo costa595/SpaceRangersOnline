@@ -1,0 +1,59 @@
+<fest:template xmlns:fest="http://fest.mail.ru" context_name="createProfile">
+
+      <div id="windowCreateProfile" class="windowCreateProfile">
+            <div id="typeChooseRaceAndClass_race" class="typeChooseRaceAndClass">Раса</div>
+            <div id="typeChooseRaceAndClass_class" class="typeChooseRaceAndClass">Характер</div>
+           <!--button race-->
+            <div id="race_malok" class="button_choose_race choose_race">
+                  <div id="race_malok_icon" class="stop_click"></div>
+            </div>
+            <div id="race_peleng" class="button_choose_race">
+                  <div id="race_peleng_icon" class="stop_click"></div>
+            </div>
+            <div id="race_human" class="button_choose_race">
+                  <div id="race_human_icon" class="stop_click"></div>
+            </div>
+            <div id="race_fainin" class="button_choose_race">
+                  <div id="race_fainin_icon" class="stop_click"></div>
+            </div>
+            <div id="race_galec" class="button_choose_race">
+                  <div id="race_galec_icon" class="stop_click"></div>
+            </div>
+            <!--end button race-->
+            <!--button class-->
+            <div id="class_war" class="button_choose_class choose_class">
+                  <div id="class_war_icon" class="stop_click"></div>
+            </div>
+            <div id="class_mercenary" class="button_choose_class">
+                  <div id="class_mercenary_icon" class="stop_click"></div>
+            </div>
+            <div id="class_trade" class="button_choose_class">
+                  <div id="class_trade_icon" class="stop_click"></div>
+            </div>
+            <div id="class_corsar" class="button_choose_class">
+                  <div id="class_corsar_icon" class="stop_click"></div>
+            </div>
+            <div id="class_pirate" class="button_choose_class">
+                  <div id="class_pirate_icon" class="stop_click"></div>
+            </div>
+            <!--end button class-->
+            <!--button choose img u profile-->
+            <div id="left_button_img_profile" class="button_img_profile"></div>
+            <div id="right_button_img_profile" class="button_img_profile"></div>
+            <div class="img_choose_peson"></div>
+            <!--end img profile-->
+            <!--info about profile-->
+            <div class="wrap_apply_name_person">
+                  <span class="new_name_peson">Имя:</span>
+                  <div id="apply_name_person" class="apply"></div>
+                  <input id="input_new_name_peson" type="text" class="input_new_name_peson"></input>
+            </div>
+            <div id="info_about_person" class="info_about_person">
+                  dsajdkasj lkjdklsaj kdjakl sjdlk;saj dk;lasajd  kasj lkjdklsaj kdja  kl sjdlk;s
+                  aj dk;la dsajd kasj lkjdklsaj kdjakl sjdlk;saj dk;la dsajdkasj lkj
+                  dklsaj kdjakl sjdlk;saj dk;la
+            </div>
+
+      </div>
+
+</fest:template>

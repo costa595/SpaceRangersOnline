@@ -4,6 +4,7 @@ import Users.AccountService;
 import Users.UserProfile;
 import constants.CodeResponses;
 import org.json.simple.JSONObject;
+import profiles.ItemProfile;
 import profiles.SystemProfile;
 
 import javax.servlet.ServletException;
@@ -28,15 +29,21 @@ public class LoginServlet extends HttpServlet {
                       HttpServletResponse response) throws ServletException, IOException {
         String sessionId = request.getSession().getId();
         UserProfile currentUser = accountService.getCurrentUser(sessionId);
+        System.out.println("doGet "+sessionId+" "+currentUser);
         String sysId = null;
         String engineId = null;
         String shipId = null;
         String fuelId = null;
+//        String droidId = null;
         try {
             sysId = new Integer(currentUser.getLocationId()).toString();
             engineId = new Integer(currentUser.getEngine()).toString();
             shipId = new Integer(currentUser.getShip()).toString();
             fuelId = new Integer(currentUser.getFuel()).toString();
+//            if(currentUser.getDroid() == 0) {
+//                accountService.getItem(
+//            }
+//            droidId = new Integer(currentUser.getDroid()).toString();
         } catch (Exception e) {}
         SystemProfile currentSystem = accountService.getCurrentSystem(sysId);
         //ItemProfile curItem = accountService.getItem();
@@ -47,23 +54,39 @@ public class LoginServlet extends HttpServlet {
             JSONObject engine = new JSONObject();
             JSONObject ship = new JSONObject();
             JSONObject fuel = new JSONObject();
+//            JSONObject droid = new JSONObject();
 
-            fuel.put("id", accountService.getItem(fuelId).getId());
-            fuel.put("name", accountService.getItem(fuelId).getName());
-            fuel.put("capacity", accountService.getItem(fuelId).getP1());
-            fuel.put("price", accountService.getItem(fuelId).getP2());
-            fuel.put("durability", accountService.getItem(fuelId).getP3());
-            ship.put("id", accountService.getItem(shipId).getId());
-            ship.put("name", accountService.getItem(shipId).getName());
-            ship.put("hp", accountService.getItem(shipId).getP1());
-            ship.put("block", accountService.getItem(shipId).getP2());
-            ship.put("price", accountService.getItem(shipId).getP3());
-            engine.put("id", accountService.getItem(engineId).getId());
-            engine.put("name", accountService.getItem(engineId).getName());
-            engine.put("speed", accountService.getItem(engineId).getP1());
-            engine.put("giper", accountService.getItem(engineId).getP2());
-            engine.put("price", accountService.getItem(engineId).getP3());
-            engine.put("durability", accountService.getItem(engineId).getP4());
+            ItemProfile curFuel = accountService.getItem(fuelId);
+
+            if (curFuel != null) {
+                fuel.put("id", curFuel.getId());
+                fuel.put("name", curFuel.getName());
+                fuel.put("capacity", curFuel.getP1());
+                fuel.put("price", curFuel.getP2());
+                fuel.put("durability", curFuel.getP3());
+            }
+
+            ItemProfile curShip = accountService.getItem(shipId);
+
+            if (curShip != null) {
+                ship.put("id", curShip.getId());
+                ship.put("name", curShip.getName());
+                ship.put("hp", curShip.getP1());
+                ship.put("block", curShip.getP2());
+                ship.put("price", curShip.getP3());
+            }
+
+            ItemProfile curEngine = accountService.getItem(engineId);
+
+            if (curEngine != null) {
+                engine.put("id", curEngine.getId());
+                engine.put("name", curEngine.getName());
+                engine.put("speed", curEngine.getP1());
+                engine.put("giper", curEngine.getP2());
+                engine.put("price", curEngine.getP3());
+                engine.put("durability", curEngine.getP4());
+            }
+
             system.put("id", currentSystem.getId());
             system.put("name", currentSystem.getName());
             system.put("star", currentSystem.getStar());

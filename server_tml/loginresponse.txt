@@ -1,0 +1,5 @@
+{
+"status": ${status},
+"login": "${login}",
+"avatar": "${avatar}"
+}

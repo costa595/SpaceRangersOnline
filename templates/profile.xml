@@ -1,0 +1,81 @@
+<fest:template xmlns:fest="http://fest.mail.ru" context_name="profile">
+  <div class="background_profile">
+    <!--<div class="page__title">Профиль пользователя<fest:space/><fest:value>profile.login</fest:value></div>-->
+    <div id="cell_weapon_1_1" class="cell cell_right_bottom"></div>
+    <div id="cell_weapon_1_2" class="cell cell_middle_bottom"></div>
+    <div id="cell_weapon_2_1" class="cell cell_weapon_2_1"></div>
+    <div id="cell_weapon_2_2" class="cell cell_weapon_2_2"></div>
+    <div id="cell_weapon_2_3" class="cell cell_weapon_2_3"></div>
+
+    <div id="cell_engine" class="cell cell_middle_right use">
+        <img class="object_in_cell" src="/images/profile/res/engine.png"/>
+    </div>
+    <div id="cell_radar" class="cell cell_middle_right"></div>
+    <div id="cell_scanner" class="cell cell_middle_left"></div>
+    <div id="cell_fuel" class="cell cell_middle_left"></div>
+
+    <div id="cell_generator" class="cell cell_left_bottom_width"></div>
+    <div id="cell_hook" class="cell cell_middle_bottom"></div>
+    <div id="cell_droid" class="cell cell_right_bottom"></div>
+
+    <!--end cell-->
+
+    <!--other-->
+    <div class="wrapGate">
+      <div class="gateLeft"></div>
+      <div class="gateRight"></div>
+    </div>
+    <div id="holdLeft" class="holdLeft"></div>
+    <div id="holdRight" class="holdRight"></div>
+    
+    <!---->
+    <form action="/azaza" enctype="multipart/form-data">
+      <div class="profile__email"><fest:value>profile.email</fest:value></div>
+      <div class="profile__image"><img src="{profile.avatar}"/></div>
+    </form>
+  </div>
+
+  <div class="rightBlock">
+    <div class="close_profile"></div>
+    <div class="ava_profile"></div>
+    <div class="rank rank8"></div>
+    <div class="wrap_ability">
+        <div id="accuracy_skill" class="block_ability">
+            <div class="ability"></div>
+            <div class="ability_icon"></div>
+            <div class="button_plus_ability"></div>
+            <div class="ability_line"></div>
+        </div>
+        <div id="maneuverability_skill" class="block_ability">
+            <div class="ability"></div>
+            <div class="ability_icon"></div>
+            <div class="button_plus_ability"></div>
+            <div class="ability_line"></div>
+        </div>
+        <div id="technology_skill" class="block_ability">
+            <div class="ability"></div>
+            <div class="ability_icon"></div>
+            <div class="button_plus_ability"></div>
+            <div class="ability_line"></div>
+        </div>
+        <div id="trade_skill" class="block_ability">
+            <div class="ability"></div>
+            <div class="ability_icon"></div>
+            <div class="button_plus_ability"></div>
+            <div class="ability_line"></div>
+        </div>
+        <div id="charm_skill" class="block_ability">
+            <div class="ability"></div>
+            <div class="ability_icon"></div>
+            <div class="button_plus_ability"></div>
+            <div class="ability_line"></div>
+        </div>
+        <div id="leadership_skill" class="block_ability">
+            <div class="ability"></div>
+            <div class="ability_icon"></div>
+            <div class="button_plus_ability"></div>
+            <div class="ability_line"></div>
+        </div>
+    </div>  
+  </div>
+</fest:template>

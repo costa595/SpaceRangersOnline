@@ -1,0 +1,16 @@
+<fest:template xmlns:fest="http://fest.mail.ru" context_name="user">
+    <fest:choose>
+        <fest:when test="user.isLogined()">
+            <button class="panel__button panel__button_logout js-logout">Выход</button>
+            <a href="#profile" class="panel__button panel__button_profile">Профиль</a>
+            <div class="panel__text panel__text_login"><fest:value>user.get('login')</fest:value></div>
+            <a href="#scoreboard" class="panel__button panel__button_rating">Рейтинг</a>
+        </fest:when>
+        <fest:otherwise>
+            <a href="#createProfile" class="panel__button panel__button_createprofile">Создать профиль</a>
+            <a href="#login" class="panel__button panel__button_login"> Вход</a>
+            <a href="#signup" class="panel__button panel__button_signup"> Регистрация </a>
+        </fest:otherwise>
+    </fest:choose>
+
+</fest:template>

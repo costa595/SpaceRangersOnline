@@ -1,0 +1,61 @@
+.toolbar
+    //position: fixed
+    //overflow: hidden
+    //bottom: 0
+    position: absolute
+    width: 100%
+    min-width: 1000px
+    z-index: 1
+    background: url('/images/toolbar/toolbar-left.png') left center no-repeat, url('/images/toolbar/toolbar-right.png') right bottom no-repeat, url('/images/toolbar/toolbar-middle.png') center bottom repeat-x
+    height: 82px
+    margin-top: -82px
+
+.toolbar_menu
+    width: 83px
+    height: 40px
+    position: absolute
+    left: 1px
+    bottom: 0px
+    cursor: pointer
+    background: url('/images/toolbar/Menu.png')
+    &:hover
+        background: url('/images/toolbar/MenuHover.png')
+    &:active
+        background: url('/images/toolbar/MenuPress.png')
+
+.right_part_toolbar
+    position: absolute
+    bottom: 42px
+    right: -3px
+    height: 30px
+    width: 145px
+    
+    .toolbar_left_button  
+        height: 33px
+        float: left
+        margin-right: -2px
+        cursor: pointer
+
+    .toolbar_ship
+        width: 46px
+        background: url('/images/toolbar/Ship.png')
+        &:hover
+            background: url('/images/toolbar/ShipHover.png')
+        &:active
+            background: url('/images/toolbar/ShipPress.png')
+
+    .toolbar_raiting
+        width: 47px
+        background: url('/images/toolbar/Rating.png')
+        &:hover
+            background: url('/images/toolbar/RatingHover.png')
+        &:active
+            background: url('/images/toolbar/RatingPress.png')
+
+    .toolbar_map
+        width: 49px
+        background: url('/images/toolbar/Gal.png')
+        &:hover
+            background: url('/images/toolbar/GalHover.png')
+        &:active
+            background: url('/images/toolbar/GalPress.png')

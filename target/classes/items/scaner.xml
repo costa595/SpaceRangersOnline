@@ -1,0 +1,37 @@
+<scaners>
+    <scaner>
+        <id>49</id>
+        <name>Трассионный сканер</name>
+        <scan>5</scan>
+        <price>3000</price>
+        <durability>200</durability>
+    </scaner>
+    <scaner>
+        <id>50</id>
+        <name>Вортексный сканер</name>
+        <scan>10</scan>
+        <price>15000</price>
+        <durability>400</durability>
+    </scaner>
+    <scaner>
+        <id>51</id>
+        <name>Нейрощупный сканер</name>
+        <scan>15</scan>
+        <price>80000</price>
+        <durability>600</durability>
+    </scaner>
+    <scaner>
+        <id>52</id>
+        <name>Молекулярный сканер</name>
+        <scan>20</scan>
+        <price>200000</price>
+        <durability>800</durability>
+    </scaner>
+    <scaner>
+        <id>53</id>
+        <name>Коллоидный сканер</name>
+        <scan>25</scan>
+        <price>500000</price>
+        <durability>1000</durability>
+    </scaner>
+</scaners>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<engines>
+    <engine>
+        <id>16</id>
+        <name>Нырковый двигатель</name>
+        <speed>100</speed>
+        <giper>15</giper>
+        <price>100</price>
+        <durability>100</durability>
+    </engine>
+    <engine>
+        <id>17</id>
+        <name>Сингулярный двигатель</name>
+        <speed>200</speed>
+        <giper>25</giper>
+        <price>5000</price>
+        <durability>500</durability>
+    </engine>
+    <engine>
+        <id>18</id>
+        <name>Жабродюзный двигатель</name>
+        <speed>300</speed>
+        <giper>32</giper>
+        <price>30000</price>
+        <durability>800</durability>
+    </engine>
+    <engine>
+        <id>19</id>
+        <name>Потоковый двигатель</name>
+        <speed>400</speed>
+        <giper>40</giper>
+        <price>100000</price>
+        <durability>1200</durability>
+    </engine>
+    <engine>
+        <id>20</id>
+        <name>Сплэшевый двигатель</name>
+        <speed>500</speed>
+        <giper>50</giper>
+        <price>700000</price>
+        <durability>1500</durability>
+    </engine>
+</engines>

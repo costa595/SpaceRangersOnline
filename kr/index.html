@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>Space Rangers</title>
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+		<link href="css/excite-bike/excite-bike.custom.min.css"
+			rel="stylesheet">
+		
+		<link href="css/excite-bike/excite-bike.custom.css" rel="stylesheet">
+		<script type="text/javascript" src="js/jquery-1.10.2.js"></script>
+		<script type="text/javascript" src="js/jquery-ui-1.10.4.custom.js"></script>
+		<script type="text/javascript" src="js/jquery-ui-1.10.4.custom.min.js"></script>
+<script type="text/javascript">
+//Сдвиг до центра галактики
+var centeroffset = {
+		x: -700,
+		y: -1200
+}
+//Данные, характерны для корабля
+//moveIndex, чтобы определить, начато ли новое перемещение. В процессе игры он просто будет расти. И при каждой анимации передавать текущий. Самый новый индекс хранить в свойстве объекта. 
+//Если текущий индекс при анимации не новый, то анимацию остановить
+var sun = new Object();
+var mySpaceShip = {
+		bkgSpeed : 10, //скорость
+		moveIndex : 0,
+		curAngle : 0
+}
+var offset_space = 0
+var space = new Object();
+var log = new Object();
+var fullscreen = false;
+
+function fullScreen(element) {
+	  if(element.requestFullScreen) {
+	    element.requestFullScreen();
+	  } else if(element.webkitRequestFullScreen ) {
+	    element.webkitRequestFullScreen();
+	  } else if(element.mozRequestFullScreen) {
+	    element.mozRequestFullScreen();
+	  }
+}
+
+function exitfullscreen() {
+	  if (document.exitFullscreen) {
+	    document.exitFullscreen();
+	  } else if (document.mozCancelFullScreen) {
+	    document.mozCancelFullScreen();
+	  } else if (document.webkitCancelFullScreen) {
+	    document.webkitCancelFullScreen();
+	  }
+}
+
+
+function addFullScreen(){
+	// всю страницу
+	var horisontalOffset = (screen.availWidth - space.width()) / 2
+		var verticalOffset = (screen.availHeight - space.height()) / 2
+	var html = document.documentElement;
+	if (fullscreen){
+		mySpaceshipJQ.css('margin-left', 492);
+		space.css('height', '600px');
+		exitfullscreen();
+		mySpaceshipJQ.css('margin-top', '300px');
+		space.css('background-position-y', backgorundY - verticalOffset);
+		mySpaceShip.curAbsPosition.y = space.height()/2
+		fullscreen = false;
+	} else {
+		mySpaceshipJQ.css('margin-left', screen.availWidth / 2);
+		backgorundX = parseInt(space.css('background-position-x'));
+		backgorundY = parseInt(space.css('background-position-y'));
+		space.css('height', screen.availHeight);	
+		fullScreen(html);
+		fullscreen = true;
+		mySpaceshipJQ.css('margin-top', space.height()/2);
+		mySpaceshipJQ.css('margin-left', space.width()/2);
+		space.css('background-position-y', backgorundY + verticalOffset);	
+		mySpaceShip.curAbsPosition.y = space.height()/2
+	}
+}
+	
+$(document).ready(function(){
+	log = $("#log");
+	sun = $("#sun");
+	mySpaceshipJQ = $("#mySpaceShip");
+	mySpaceShip.jqObj = mySpaceshipJQ;
+	mySpaceShip.height = mySpaceshipJQ.height();
+	mySpaceShip.width = mySpaceshipJQ.width();
+	space = $("#space");
+	//Сдвигаем, чтобы корабль был по центру галактики
+	space.css('background-position-x', centeroffset.x);
+	space.css('background-position-y', centeroffset.y)
+	offset_space = space.offset()
+	//Получаем координаты центра космоса, чтобы поместить туда корабль в самом начале
+	//alert(offset_space.top + space.heigth()/2)
+	mySpaceShip.curAbsPosition = {
+				x: space.width()/2,
+				y: space.height()/2
+		}
+	mySpaceShip.curBackgroundOffset = { //Сдвиг относительно центра системы
+		x: centeroffset.x,
+		y: centeroffset.y
+	}
+	//Получаем координаты центра космоса, чтобы поместить туда корабль в самом начале
+	mySpaceshipJQ.css('margin-top', space.height()/2);
+	mySpaceshipJQ.css('margin-left', space.width()/2);
+	space.click(moveMySpaceShip);
+});
+
+function moveMySpaceShip(e){
+	/*var backgroundPosition = {
+			x : parseInt(space.css('background-position-x')),
+			y : parseInt(space.css('background-position-y'))
+	}*/
+	$('#position').html(e.pageX+' - '+e.pageY);
+	var xAbs = e.pageX - offset_space.left - mySpaceShip.width/2;
+	var yAbs = e.pageY - offset_space.top - mySpaceShip.height/2;
+	//mySpaceshipJQ.css('margin-top', yAbs);
+	//mySpaceshipJQ.css('margin-left', xAbs);
+	mySpaceShip.destAbsPosition = { //Координаты, к которым летит объект
+			x: xAbs,
+			y: yAbs
+	}
+	var xOffset = mySpaceShip.curAbsPosition.x - mySpaceShip.destAbsPosition.x;
+	var yOffset = mySpaceShip.curAbsPosition.y - mySpaceShip.destAbsPosition.y;
+	var attitudeOffsetY = 1
+	if (xOffset != 0) 
+		attitudeOffsetY = Math.abs(yOffset / xOffset);
+	var attitudeOffsetX = 1
+	if (xOffset != 0) 
+		attitudeOffsetX = Math.abs(xOffset / yOffset);
+	//alert(attitudeOffset+ ' ' + mySpaceShip.speed * attitudeOffset)
+	mySpaceShip.moveIndex ++;
+	log.append('<br>-------------------------------------------------------------------')
+	var angle = Math.atan(yOffset / xOffset) *  180 / Math.PI + 90
+	if (xOffset > 0)
+		angle += 180
+	//alert(mySpaceshipJQ.css( '-moz-transform'))
+	
+	animateMyMove(mySpaceShip, angle, xOffset, yOffset, attitudeOffsetY, attitudeOffsetX, mySpaceShip.moveIndex)
+	return 0;
+}
+
+function animateMyMove(shipObj, destAngle, xOffset, yOffset, attitudeOffsetY, attitudeOffsetX, moveIndex){
+	if (moveIndex < shipObj.moveIndex)
+		return 0;
+	var jqObj = shipObj.jqObj;
+	var continueAnimate = false;
+	if (shipObj.curAngle != destAngle){
+		if (Math.abs(shipObj.curAngle - destAngle) < 10){
+			shipObj.curAngle = destAngle
+		} else {
+			if (shipObj.curAngle > destAngle) {
+				shipObj.curAngle -= 10;
+				continueAnimate = true;
+			} else {
+				shipObj.curAngle += 10;
+				continueAnimate = true;
+			}
+		}
+	}
+	mySpaceshipJQ.css( 'transform', 'rotate(' + shipObj.curAngle + 'deg)' );   
+	mySpaceshipJQ.css( '-moz-transform', 'rotate(' + shipObj.curAngle + 'deg)' );   
+	mySpaceshipJQ.css( '-webkit-transform', 'rotate(' + shipObj.curAngle + 'deg)' );
+	mySpaceshipJQ.css( '-o-transform', 'rotate(' + shipObj.curAngle + 'deg)' );
+	var backgroundPosition = {
+		x : parseInt(space.css('background-position-x')),
+		y : parseInt(space.css('background-position-y'))
+	}
+	var sunSpeed = {
+		x: 0,
+		y: 0
+	}
+	var xSpeed = shipObj.bkgSpeed * attitudeOffsetX
+	if (xSpeed >= 10)
+		xSpeed = 10
+	if (Math.abs(xOffset) > xSpeed) {
+		if (xOffset > 0){
+			continueAnimate = true;
+			space.css('background-position-x', backgroundPosition.x + xSpeed);
+			sunSpeed.x = -xSpeed
+			xOffset -= xSpeed
+		} else if (xOffset < 0) {
+			continueAnimate = true;
+			space.css('background-position-x', backgroundPosition.x - xSpeed);
+			sunSpeed.x = xSpeed
+			xOffset += xSpeed
+		} 
+	} else {
+		space.css('background-position-x', backgroundPosition.x - xOffset);
+		sunSpeed.x = xOffset
+		xOffset = 0;
+	}
+	//var yOffset = xOffset * attitude;
+	var ySpeed = shipObj.bkgSpeed * attitudeOffsetY
+	if (ySpeed >= 10){
+		ySpeed = 10
+	}
+	if (Math.abs(yOffset) > ySpeed) {
+		if (yOffset > 0){
+			continueAnimate = true;
+			space.css('background-position-y', backgroundPosition.y + ySpeed);
+			yOffset -= ySpeed
+			sunSpeed.y = -ySpeed
+		} else if (yOffset < 0) {
+			continueAnimate = true;
+			space.css('background-position-y', backgroundPosition.y - ySpeed);
+			yOffset += ySpeed
+			sunSpeed.y = ySpeed
+		} 
+	} else {
+		space.css('background-position-y', backgroundPosition.y - yOffset);	
+		//AddSunSpeed
+		sunSpeed.y = yOffset
+		yOffset = 0
+	}
+	log.append('<br> xOffset = '+xOffset+' - yOffset = '+yOffset + '- ySpeed = '+ySpeed)
+	backgroundPosition = {
+			x : parseInt(space.css('background-position-x')),
+			y : parseInt(space.css('background-position-y'))
+		}
+	//Координаты для передачи на сервер
+	shipObj.curBackgroundOffset.x = backgroundPosition.x
+	shipObj.curBackgroundOffset.y = backgroundPosition.y
+	moveSun(sunSpeed);
+	if (continueAnimate)
+		setTimeout(function() {
+			animateMyMove(shipObj, destAngle, xOffset, yOffset, attitudeOffsetY, attitudeOffsetX, moveIndex) 
+			}, 100);
+	return 0;
+}
+
+function moveSun(sunSpeed){
+	var sunMargin = {
+		y : parseInt(sun.css('margin-top')),
+		x : parseInt(sun.css('margin-left'))
+	}
+	sunSpeed.y = Math.round(sunSpeed.y * 3)
+	sunSpeed.x = Math.round(sunSpeed.x * 3)
+	sun.css('margin-top', Math.round(sunMargin.y - sunSpeed.y));
+	sun.css('margin-left', Math.round(sunMargin.x - sunSpeed.x));
+	log.append('<br>Sun xOffset = '+sunSpeed.x+' - yOffset = '+sunSpeed.y + ' xMargin = '+sunMargin.x+' - yMargin = '+sunMargin.y )
+}
+</script>
+<style type="text/css">
+body {
+	background: black;
+}
+#mySpaceShip{
+	width: 50px;
+	position: absolute;
+}
+
+#sun {
+	margin-top: 157px;
+	margin-left: 600px;
+}
+
+#space{
+	height: 600px;
+	background: url(img/space1.jpg) no-repeat;
+	overflow: hidden;
+}
+
+#fullscreenbutton {
+	float:right;
+	cursor: pointer;
+}
+
+#downNav {
+	background: white;
+	overflow: scroll;
+	height: 900px;
+}
+</style>
+</head>
+
+<body>
+	<span onclick="addFullScreen()" id="fullscreenbutton" class="ui-icon ui-icon-arrowthick-2-ne-sw"></span>
+	<img src = "img/Animation_1.gif" id="mySpaceShip">
+	<div id="space">
+		<img src = "img/sun1.gif" id="sun">
+		
+		
+	</div>
+	<div id="downNav">
+	<div id="position"></div>
+	<div id="log"></div>
+	</div>
+</body>
+</html>

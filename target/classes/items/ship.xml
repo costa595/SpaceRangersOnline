@@ -1,0 +1,107 @@
+<ships>
+    <ship>
+        <id>1</id>
+        <name>Титановый малокский корпус рейнджера</name>
+        <hp>600</hp>
+        <block>1</block>
+        <price>300</price>
+    </ship>
+    <ship>
+        <id>2</id>
+        <name>Титановый пеленгский корпус рейнджера</name>
+        <hp>500</hp>
+        <block>4</block>
+        <price>300</price>
+    </ship>
+    <ship>
+        <id>3</id>
+        <name>Титановый людской корпус рейнджера</name>
+        <hp>400</hp>
+        <block>7</block>
+        <price>300</price>
+    </ship>
+    <ship>
+        <id>4</id>
+        <name>Титановый фэянский корпус рейнджера</name>
+        <hp>300</hp>
+        <block>10</block>
+        <price>300</price>
+    </ship>
+    <ship>
+        <id>5</id>
+        <name>Титановый гаальский корпус рейнджера</name>
+        <hp>200</hp>
+        <block>13</block>
+        <price>300</price>
+    </ship>
+    <ship>
+        <id>6</id>
+        <name>Рениумный малокский корпус рейнджера</name>
+        <hp>1000</hp>
+        <block>5</block>
+        <price>20000</price>
+    </ship>
+    <ship>
+        <id>7</id>
+        <name>Рениумный пеленгский корпус рейнджера</name>
+        <hp>800</hp>
+        <block>12</block>
+        <price>20000</price>
+    </ship>
+    <ship>
+        <id>8</id>
+        <name>Рениумный людской корпус рейнджера</name>
+        <hp>650</hp>
+        <block>15</block>
+        <price>20000</price>
+    </ship>
+    <ship>
+        <id>9</id>
+        <name>Рениумный фэянский корпус рейнджера</name>
+        <hp>500</hp>
+        <block>20</block>
+        <price>20000</price>
+    </ship>
+    <ship>
+        <id>10</id>
+        <name>Рениумный гаальский корпус рейнджера</name>
+        <hp>400</hp>
+        <block>22</block>
+        <price>20000</price>
+    </ship>
+    <ship>
+        <id>11</id>
+        <name>Селениновый малокский корпус рейнджера</name>
+        <hp>2000</hp>
+        <block>15</block>
+        <price>600000</price>
+    </ship>
+    <ship>
+        <id>12</id>
+        <name>Селениновый пеленгский корпус рейнджера</name>
+        <hp>1700</hp>
+        <block>21</block>
+        <price>600000</price>
+    </ship>
+    <ship>
+        <id>13</id>
+        <name>Селениновый людской корпус рейнджера</name>
+        <hp>1500</hp>
+        <block>26</block>
+        <price>600000</price>
+    </ship>
+    <ship>
+        <id>14</id>
+        <name>Селениновый фэянский корпус рейнджера</name>
+        <hp>1300</hp>
+        <block>32</block>
+        <price>600000</price>
+    </ship>
+    <ship>
+        <id>15</id>
+        <name>Селениновый гаальский корпус рейнджера</name>
+        <hp>1100</hp>
+        <block>38</block>
+        <price>600000</price>
+    </ship>
+</ships>

@@ -42,17 +42,21 @@ public class WebSocketService {
 
         for (String key : userSockets.keySet()) {
             GameWebSocket userSocket = userSockets.get(key);
-            String otherPlayerUserName = userSocket.getName();
-            int otherPlayerLocationId = userSocket.getLocation();
+            if (userSocket != null) {
+                String otherPlayerUserName = userSocket.getName();
+                int otherPlayerLocationId = userSocket.getLocation();
 
-            if (!userName.equals(otherPlayerUserName) && userLocationId == otherPlayerLocationId){
-                userSocket.sendJSONObject(output);
+                if (!userName.equals(otherPlayerUserName) && userLocationId == otherPlayerLocationId){
+                    userSocket.sendJSONObject(output);
+                }
             }
+
+
         }
     }
 
     public void removeSocket(GameWebSocket userSocket) {
-        userSockets.remove(userSocket.getName());
+        userSockets.remove(userSocket.getSessionId());
     }
 
     private void startGame(String first, String second) {

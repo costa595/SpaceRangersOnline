@@ -18,6 +18,7 @@ import java.util.Map;
 public class AccountService {
     public Map<String, UserProfile> sessions = new HashMap<>();
     public Map<String, UserProfile> users = new HashMap<>();
+    public Map<String, String> loginSessions = new HashMap<>(); //Для предотвразение дублирования суссий с одноим и тем же логином. Хранится: логин - id сессии, описк оп логину
     public Map<String, SystemProfile> systems = new HashMap<>();
     public Map<String, ItemProfile> items = new HashMap<>();
 
@@ -62,12 +63,25 @@ public class AccountService {
 
         UserProfile currentUser = this.users.get(login);
         if ((currentUser != null) && (password.equals(currentUser.getPassword()))) {
+            String tmpSessionId = this.loginSessions.get(login);
+            if (tmpSessionId != null) {
+                this.sessions.remove(tmpSessionId);
+            }
+            currentUser.updateCoords(0, 0);
+            currentUser.updateCoords(0, 0);
             this.sessions.put(sessionId, currentUser);
+            this.loginSessions.put(login, sessionId);
             return CodeResponses.OK;
         }
         else {
             return CodeResponses.NOT_LOGINED;
         }
+    }
+
+    public void updateUsersSession (String oldSessionId, String newSessionId) {
+        UserProfile curUser = this.sessions.get(oldSessionId);
+        this.sessions.remove(oldSessionId);
+        this.sessions.put(newSessionId, curUser);
     }
 
     public UserProfile getCurrentUser(String sessionId) {
@@ -78,7 +92,10 @@ public class AccountService {
     public SystemProfile getCurrentSystem(String id) {
         return  this.systems.get(id);
     }
-    public ItemProfile getItem(String id) { return  this.items.get(id); }
+    public ItemProfile getItem(String id) {
+        System.out.println("this.items "+this.items.toString());
+        return  this.items.get(id);
+    }
 
     public void updateUser(UserProfile userNewInfo, String sessionID) {
 

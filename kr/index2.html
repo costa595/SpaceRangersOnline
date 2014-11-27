@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>Space Rangers</title>
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+		<link href="css/excite-bike/excite-bike.custom.min.css"
+			rel="stylesheet">
+		
+		<link href="css/excite-bike/excite-bike.custom.css" rel="stylesheet">
+		<script type="text/javascript" src="js/jquery-1.10.2.js"></script>
+		<script type="text/javascript" src="js/jquery-ui-1.10.4.custom.js"></script>
+		<script type="text/javascript" src="js/jquery-ui-1.10.4.custom.min.js"></script>
+<script type="text/javascript">
+//Сдвиг до центра галактики
+var centeroffset = {
+		x: -500,
+		y: -500
+}
+//Данные, характерны для корабля
+//moveIndex, чтобы определить, начато ли новое перемещение. В процессе игры он просто будет расти. И при каждой анимации передавать текущий. Самый новый индекс хранить в свойстве объекта. 
+//Если текущий индекс при анимации не новый, то анимацию остановить
+var mySpaceShip = {
+		speed : 10, //скорость
+		moveIndex : 0
+}
+var offset_space = 0
+var space = new Object();
+var log = new Object();
+
+function fullScreen(element) {
+  if(element.requestFullScreen) {
+    element.requestFullScreen();
+  } else if(element.webkitRequestFullScreen ) {
+    element.webkitRequestFullScreen();
+  } else if(element.mozRequestFullScreen) {
+    element.mozRequestFullScreen();
+  }
+}
+
+function addFullScreen(){
+	// всю страницу
+	var html = document.documentElement;
+	fullScreen(html);
+}
+
+$(document).ready(function(){
+	log = $("#log");
+	mySpaceshipJQ = $("#mySpaceShip");
+	mySpaceShip.jqObj = mySpaceshipJQ;
+	mySpaceShip.height = mySpaceshipJQ.height();
+	mySpaceShip.width = mySpaceshipJQ.width();
+	space = $("#space");
+	//Сдвигаем, чтобы корабль был по центру галактики
+	space.css('background-position-x', centeroffset.x);
+	space.css('background-position-y', centeroffset.y)
+	offset_space = space.offset()
+	//Получаем координаты центра космоса, чтобы поместить туда корабль в самом начале
+	//alert(offset_space.top + space.heigth()/2)
+	mySpaceShip.curRelativePosition = {
+			x: space.width()/2 + offset_space.left,
+			y: space.height()/2 + offset_space.top
+		}
+	mySpaceShip.curBackgroundOffset = { //Сдвиг относительно центра системы
+			x: centeroffset.x,
+			y: centeroffset.y
+		}
+	//Получаем координаты центра космоса, чтобы поместить туда корабль в самом начале
+	mySpaceshipJQ.css('margin-top', space.height()/2);
+	mySpaceshipJQ.css('margin-left', space.width()/2);
+	space.click(moveMySpaceShip);
+});
+
+function moveMySpaceShip(e){
+	/*var backgroundPosition = {
+			x : parseInt(space.css('background-position-x')),
+			y : parseInt(space.css('background-position-y'))
+	}*/
+	$('#position').html(e.pageX+' - '+e.pageY);
+	var relativeMouseClick = {
+		x: e.pageX - offset_space.left,
+		y: e.pageY - offset_space.top
+	}
+	var xAbs = relativeMouseClick.x - mySpaceShip.width/2;
+	var yAbs = relativeMouseClick.y - mySpaceShip.height/2;
+	mySpaceShip.destRelativePosition = { //Координаты, к которым летит объект
+			x: xAbs,
+			y: yAbs
+	}
+	var xOffset = mySpaceShip.curAbsPosition.x - mySpaceShip.destRelativePosition.x;
+	var yOffset = mySpaceShip.curAbsPosition.y - mySpaceShip.destRelativePosition.y;
+	var k = -(mySpaceShip.curBackgroundOffset.y - mySpaceShip.destAbsPosition.y)/(mySpaceShip.curBackgroundOffset.x - mySpaceShip.destAbsPosition.x)
+	var b = mySpaceShip.curBackgroundOffset.y - k * mySpaceShip.curBackgroundOffset.x;
+	log.append('<br> y='+k+'x + '+b + ' cury = ' + mySpaceShip.curBackgroundOffset.y)
+	mySpaceShip.moveIndex ++;
+	//alert()
+	//alert('offl='+mySpaceShip.position.left)
+	//var xOffset = ;
+	animateMove(mySpaceShip, xOffset, yOffset, mySpaceShip.moveIndex)
+	//animateMove2(mySpaceShip, k, b, mySpaceShip.curAbsPosition.x, mySpaceShip.destAbsPosition.x, mySpaceShip.moveIndex)
+	var corner = 0;
+	/*var mouseCoordDov {
+		x: e.pageX - 
+	}*/
+	return 0;
+}
+
+function animateMove2(shipObj, k, b, curx, destx, moveIndex){
+	if (moveIndex < shipObj.moveIndex)
+		return 0;
+	var jqObj = shipObj.jqObj
+	var continueAnimate = false;
+	var backgroundPosition = {
+			x : parseInt(space.css('background-position-x')),
+			y : parseInt(space.css('background-position-y'))
+		}
+	var xOffset = destx - curx;
+	if (Math.abs(xOffset) > shipObj.speed) { 
+		if (xOffset > 0){
+			continueAnimate = true;
+			space.css('background-position-x', backgroundPosition.x - shipObj.speed);
+			curx += shipObj.speed
+		} else if (xOffset < 0) {
+			continueAnimate = true;
+			space.css('background-position-x', backgroundPosition.x + shipObj.speed);
+			curx -= shipObj.speed
+		} 
+	} else {
+		space.css('background-position-x', backgroundPosition.x - xOffset);
+	}
+	var yOffset = k * curx + b;
+	//space.css('background-position-y', - yOffset);	
+	log.append('<br> y='+k+'x + ' + b + '  xOffset = '+xOffset+' - yOffset = '+yOffset)
+	if (continueAnimate)
+		setTimeout(function() {
+			animateMove2(shipObj, k, b, curx, destx, moveIndex) 
+			}, 100);
+	return 0;
+}
+/*
+ * Проблема в синхронизации между абслютной позицией клика и положением корабля. 
+ Так как корабль всегда по центру экрана, его показатели могут помешать правильному подсчету данных. Хотя, объективно у нас есть 
+ bacground=position. Надоп пробовать, может подсчет margin и цели поможет. 
+ Как вариант, можно высчитывать в функции moveMySpaceShip расстояния и передавать уже в функцию на анимацию. Таким образом получится посчитать все сдвиги верно
+ */
+function animateMove(shipObj, xOffset, yOffset, moveIndex){
+	if (moveIndex < shipObj.moveIndex)
+		return 0;
+	var jqObj = shipObj.jqObj;
+	var continueAnimate = false;
+	var backgroundPosition = {
+		x : parseInt(space.css('background-position-x')),
+		y : parseInt(space.css('background-position-y'))
+	}
+	log.append('<br> xOffset = '+xOffset+' - yOffset = '+yOffset)
+	if (Math.abs(xOffset) > shipObj.speed) {
+		if (xOffset > 0){
+			continueAnimate = true;
+			space.css('background-position-x', backgroundPosition.x + shipObj.speed);
+			xOffset -= shipObj.speed
+		} else if (xOffset < 0) {
+			continueAnimate = true;
+			space.css('background-position-x', backgroundPosition.x - shipObj.speed);
+			xOffset += shipObj.speed
+		} 
+	} else {
+		space.css('background-position-x', backgroundPosition.x - xOffset);
+		xOffset = 0;
+	}
+	if (Math.abs(yOffset) > shipObj.speed) {
+		if (yOffset > 0){
+			continueAnimate = true;
+			space.css('background-position-y', backgroundPosition.y + shipObj.speed);
+			yOffset -= shipObj.speed
+		} else if (yOffset < 0) {
+			continueAnimate = true;
+			space.css('background-position-y', backgroundPosition.y - shipObj.speed);
+			yOffset += shipObj.speed
+		} 
+	} else {
+		space.css('background-position-y', backgroundPosition.y - yOffset);	
+		yOffset = 0
+	}
+	backgroundPosition = {
+			x : parseInt(space.css('background-position-x')),
+			y : parseInt(space.css('background-position-y'))
+		}
+	//Координаты для передачи на сервер
+	shipObj.curBackgroundOffset.x = backgroundPosition.x
+	shipObj.curBackgroundOffset.y = backgroundPosition.y
+	if (continueAnimate)
+		setTimeout(function() {
+			animateMove(shipObj, xOffset, yOffset, moveIndex) 
+			}, 100);
+	return 0;
+}
+</script>
+<style type="text/css">
+#mySpaceShip{
+	width: 50px;
+}
+
+#space{
+	border: 1px solid black;
+	height: 600px;
+	width: 1000px;
+	margin: 100px 0px 0px 0px;
+	background: url(img/space1.jpg) no-repeat;
+	
+}
+
+#fullscreenbutton {
+	float:right;
+	margin-top: -95px;
+	cursor: pointer;
+}
+</style>
+</head>
+
+<body>
+	<div id="gameContent">
+	<span onclick="addFullScreen()" id="fullscreenbutton" class="ui-icon ui-icon-arrowthick-2-ne-sw"></span>
+	<div id="space">
+		<img src = "img/Animation_1.gif" id="mySpaceShip">
+	</div>
+	<div id="position"></div>
+	<div id="log"></div>
+</div>
+</body>
+</html>

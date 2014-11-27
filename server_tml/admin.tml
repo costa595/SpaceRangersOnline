@@ -1,0 +1,11 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>Admin page</title>
+</head>
+<body>
+<p>Статус сервера: ${status}</p>
+<p>Онлайн: ${online}</p>
+<p>Зарегистрировано: ${registered}</p>
+<a href="admin?shutdown=1000"><input type="button" value="Выключение"></a>
+</body>
+</html>

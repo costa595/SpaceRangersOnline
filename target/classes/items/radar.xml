@@ -1,0 +1,37 @@
+<radars>
+    <radar>
+        <id>44</id>
+        <name>Волновой радар</name>
+        <locate>500</locate>
+        <price>100</price>
+        <durability>100</durability>
+    </radar>
+    <radar>
+        <id>45</id>
+        <name>Субтрансферный радар</name>
+        <locate>700</locate>
+        <price>2000</price>
+        <durability>300</durability>
+    </radar>
+    <radar>
+        <id>46</id>
+        <name>Октонный радар</name>
+        <locate>1000</locate>
+        <price>20000</price>
+        <durability>500</durability>
+    </radar>
+    <radar>
+        <id>47</id>
+        <name>Пучковый радар</name>
+        <locate>1500</locate>
+        <price>200000</price>
+        <durability>800</durability>
+    </radar>
+    <radar>
+        <id>48</id>
+        <name>Катаурный радар</name>
+        <locate>2000</locate>
+        <price>700000</price>
+        <durability>1000</durability>
+    </radar>
+</radars>

@@ -77,7 +77,7 @@ public class Main {
             accountService.systems.put(eElement.getElementsByTagName("id").item(0).getTextContent(), systemProfile);
         }
         //-------------------------------------
-        for(int i = 0; i < 5; i++) {
+        for(int i = 0; i < 8; i++) {
             String source = "ship";
             String[] mass = new String[6];
             mass[0] = "hp";
@@ -113,6 +113,27 @@ public class Main {
                             mass[0] = "repair";
                             mass[1] = "price";
                             mass[2] = "durability";
+                        } else {
+                            if(i == 5) {
+                                source = "generator";
+                                mass[0] = "block";
+                                mass[1] = "price";
+                                mass[2] = "durability";
+                            } else {
+                                if(i == 6) {
+                                    source = "radar";
+                                    mass[0] = "locate";
+                                    mass[1] = "price";
+                                    mass[2] = "durability";
+                                } else {
+                                    if(i == 7) {
+                                        source = "scaner";
+                                        mass[0] = "scan";
+                                        mass[1] = "price";
+                                        mass[2] = "durability";
+                                    }
+                                }
+                            }
                         }
                     }
                 }

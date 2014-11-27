@@ -1,0 +1,9 @@
+<fest:template xmlns:fest="http://fest.mail.ru" context_name="toolbar">
+	<div class="weapon_toolbar"></div>
+	<div class="toolbar_menu"></div>
+	<div class="right_part_toolbar">
+		<div class="toolbar_left_button toolbar_ship"></div>
+		<div class="toolbar_left_button toolbar_raiting"></div>
+		<div class="toolbar_left_button toolbar_map"></div>
+	</div>
+</fest:template>

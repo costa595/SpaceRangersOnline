@@ -22,7 +22,7 @@ import java.util.Date;
 public class GameWebSocket {
     private UserProfile userProfile;
     private Session session;
-    private String sessionId; //Сессия сокета, не всегда эквивалентна веб-сессии
+    private String sessionId; //Сессия сокета, не эквивалентна веб-сессии
     private AccountService accountService;
     //    private GameSession gameSession;
     private WebSocketService webSocketService;
@@ -80,11 +80,13 @@ public class GameWebSocket {
                     System.out.println("userProfile "+userProfile+" "+possibleUser);
                     if (userProfile == null) {
                         userProfile = possibleUser;
+                        accountService.updateUsersSession(receivedSessionId, sessionId);
                         return false;
                     } else {
                         String curUserLogin = userProfile.getLogin();
                         if (possibleUserLogin.equals(curUserLogin)) {
                             userProfile = possibleUser;
+                            accountService.updateUsersSession(receivedSessionId, sessionId);
                             return false;
                         } else {
                             return true;
@@ -186,6 +188,7 @@ public class GameWebSocket {
         JSONObject output = new JSONObject();
         output.put("type", "otherShips");
         JSONArray ships = new JSONArray();
+        System.out.println("showOther ships accountService.sessions "+accountService.sessions.toString());
         Date date = new Date();
         //accountService.sessions.keySet() заменена на users для того, чтобы тестировать коллекции других игроков
         for (String key : accountService.sessions.keySet()) {
