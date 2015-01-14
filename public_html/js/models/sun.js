@@ -8,7 +8,6 @@ define([
       // this.listenTo(shipModel, 'move:start', this.startMove);
     },
     startMove: function (coords) {
-      console.log('SUN Start Move')
       this.set(coords);
     },
     setCenter: function (coords) {

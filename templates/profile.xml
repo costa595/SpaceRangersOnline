@@ -1,44 +1,327 @@
 <fest:template xmlns:fest="http://fest.mail.ru" context_name="profile">
   <div class="background_profile">
-    <!--<div class="page__title">Профиль пользователя<fest:space/><fest:value>profile.login</fest:value></div>-->
-    <div id="cell_weapon_1_1" class="cell cell_right_bottom"></div>
-    <div id="cell_weapon_1_2" class="cell cell_middle_bottom"></div>
-    <div id="cell_weapon_2_1" class="cell cell_weapon_2_1"></div>
-    <div id="cell_weapon_2_2" class="cell cell_weapon_2_2"></div>
-    <div id="cell_weapon_2_3" class="cell cell_weapon_2_3"></div>
-
-    <div id="cell_engine" class="cell cell_middle_right use">
-        <img class="object_in_cell" src="/images/profile/res/engine.png"/>
+    <div id="speed_static" class="name_static">Скорость</div>
+    <div id="speed_static_count" class="name_static_count">
+        <fest:script>var speed = profile.get('engine')</fest:script>
+        <fest:choose>
+            <fest:when test="speed['id'] != 0">
+                <fest:value>speed['speed']</fest:value>
+            </fest:when>
+            <fest:otherwise>
+                <fest:text>0</fest:text>
+            </fest:otherwise>
+        </fest:choose>
     </div>
-    <div id="cell_radar" class="cell cell_middle_right"></div>
-    <div id="cell_scanner" class="cell cell_middle_left"></div>
-    <div id="cell_fuel" class="cell cell_middle_left"></div>
+    <div id="defence_static" class="name_static">Защита</div>
+    <div id="defence_static_count" class="name_static_count">
+        <fest:script>
+            var shipProtection = profile.get('ship')
+            var generatorProtection = profile.get('generator')
+        </fest:script>
+        <fest:value>shipProtection['block']</fest:value>
+        <fest:text>+</fest:text>
+        <fest:choose>
+            <fest:when test="generatorProtection['id'] != 0">
+                <fest:value>generatorProtection['block']</fest:value>
+            </fest:when>
+            <fest:otherwise>
+                <fest:text>0</fest:text>
+            </fest:otherwise>
+        </fest:choose>
+        <fest:text>%</fest:text>
+    </div>
 
-    <div id="cell_generator" class="cell cell_left_bottom_width"></div>
-    <div id="cell_hook" class="cell cell_middle_bottom"></div>
-    <div id="cell_droid" class="cell cell_right_bottom"></div>
+    <div class="ship_view">
+        <fest:element name="img">
+            <fest:attributes>
+                <fest:attribute name="src">
+                    <fest:text>/images/profile/res/</fest:text>
+                    <fest:script>var ship = profile.get('ship')</fest:script>
+                    <fest:value>ship['id']</fest:value>
+                    <fest:text>.png</fest:text>
+                </fest:attribute> 
+            </fest:attributes>
+        </fest:element>
+    </div>
+  
+    <fest:set name="cellElement"> 
+        <fest:script>var obj = profile.get(params.type)</fest:script>
+        <fest:element name="div">
+            <fest:attributes> 
+                <fest:attribute name="id">
+                    <fest:value>params.id</fest:value>
+                </fest:attribute>
+                <fest:attribute name="class">
+                    <fest:text>cell</fest:text>
+                    <fest:space />
+                    <fest:value>params.class</fest:value>
+                    <fest:space />
+                        <fest:choose>
+                            <fest:when test="obj['id'] != 0"> 
+                                <fest:script>var on = "use"</fest:script>
+                            </fest:when>
+                            <fest:otherwise>
+                                <fest:script>var on = ""</fest:script>
+                            </fest:otherwise>
+                        </fest:choose>
+                    <fest:value>on</fest:value>
+                </fest:attribute> 
+                <fest:if test="params.type == 'engine'">
+                    <fest:attribute name="speed">
+                        <fest:value>obj['speed']</fest:value>
+                    </fest:attribute> 
+                </fest:if>
+                <fest:if test="params.type == 'generator'">
+                    <fest:attribute name="block">
+                        <fest:value>obj['block']</fest:value>
+                    </fest:attribute>
+                </fest:if> 
+            </fest:attributes>
+            <fest:if test="obj['id'] != 0">
+                <fest:element name="img">
+                    <fest:attributes> 
+                        <fest:attribute name="class">
+                            <fest:value>params.class2</fest:value>
+                            <fest:space />
+                            <fest:text>draggable</fest:text>
+                        </fest:attribute>
+                        <fest:script>var obj = profile.get(params.type)</fest:script>
+                            <fest:attribute name="src">
+                                <fest:text>/images/profile/res/</fest:text>
+                                    <fest:value>obj['id']</fest:value>
+                                <fest:text>.png</fest:text>
+                            </fest:attribute>  
+                    </fest:attributes>
+                </fest:element> 
+            </fest:if>
+        </fest:element>
+    </fest:set> 
+
+    <fest:get name="cellElement">
+        <fest:param name="type">w1</fest:param>
+        <fest:param name="id">cell_weapon_1_1</fest:param>
+        <fest:param name="class">cell_right_bottom</fest:param>
+        <fest:param name="class2">object_in_cell</fest:param>
+    </fest:get>
+
+    <fest:get name="cellElement">
+        <fest:param name="id">cell_weapon_1_2</fest:param>
+        <fest:param name="class">cell_middle_bottom</fest:param>
+        <fest:param name="class2">object_in_cell</fest:param>
+        <fest:param name="type">w2</fest:param>
+    </fest:get>
+
+    <fest:get name="cellElement">
+        <fest:param name="id">cell_weapon_2_1</fest:param>
+        <fest:param name="class">cell_weapon_2_1</fest:param>
+        <fest:param name="class2">object_in_cell</fest:param>
+        <fest:param name="type">w3</fest:param>
+    </fest:get>
+
+    <fest:get name="cellElement">
+        <fest:param name="id">cell_weapon_2_2</fest:param>
+        <fest:param name="class">cell_weapon_2_2</fest:param>
+        <fest:param name="class2">object_in_cell</fest:param>
+        <fest:param name="type">w4</fest:param>
+    </fest:get>
+
+    <fest:get name="cellElement">
+        <fest:param name="id">cell_weapon_2_3</fest:param>
+        <fest:param name="class">cell_weapon_2_3</fest:param>
+        <fest:param name="class2">object_in_cell</fest:param>
+        <fest:param name="type">w5</fest:param>
+    </fest:get>
+
+    <fest:get name="cellElement">
+        <fest:param name="id">cell_engine</fest:param>
+        <fest:param name="class">cell_middle_right</fest:param>
+        <fest:param name="class2">object_in_cell</fest:param>
+        <fest:param name="type">engine</fest:param>
+    </fest:get>
+
+    <fest:get name="cellElement">
+        <fest:param name="id">cell_radar</fest:param>
+        <fest:param name="class">cell_middle_right</fest:param>
+        <fest:param name="class2">object_in_cell</fest:param>
+        <fest:param name="type">radar</fest:param>
+    </fest:get>
+
+    <fest:get name="cellElement">
+        <fest:param name="id">cell_scanner</fest:param>
+        <fest:param name="class">cell_middle_left</fest:param>
+        <fest:param name="class2">object_in_cell</fest:param>
+        <fest:param name="type">scaner</fest:param>
+    </fest:get>
+
+    <fest:get name="cellElement">
+        <fest:param name="id">cell_fuel</fest:param>
+        <fest:param name="class">cell_middle_left</fest:param>
+        <fest:param name="class2">object_in_cell</fest:param>
+        <fest:param name="type">fuel</fest:param>
+    </fest:get>
+
+    <fest:get name="cellElement">
+        <fest:param name="id">cell_generator</fest:param>
+        <fest:param name="class">cell_left_bottom_width</fest:param>
+        <fest:param name="class2">object_in_cell</fest:param>
+        <fest:param name="type">generator</fest:param>
+    </fest:get>
+
+    <fest:get name="cellElement">
+        <fest:param name="id">cell_hook</fest:param>
+        <fest:param name="class">cell_middle_bottom</fest:param>
+        <fest:param name="class2">object_in_cell</fest:param>
+        <fest:param name="type">hook</fest:param>
+    </fest:get>
+
+    <fest:get name="cellElement">
+        <fest:param name="id">cell_droid</fest:param>
+        <fest:param name="class">cell_right_bottom</fest:param>
+        <fest:param name="class2">object_in_cell</fest:param>
+        <fest:param name="type">droid</fest:param>
+    </fest:get>
 
     <!--end cell-->
 
     <!--other-->
+
+    <fest:set name="inventoryElement"> 
+        <fest:script>var obj = profile.get(params.type)</fest:script>
+        <fest:element name="div">
+            <fest:attributes> 
+                <fest:attribute name="id">
+                    <fest:value>params.id</fest:value>
+                </fest:attribute>
+                <fest:attribute name="class">
+                    <fest:value>params.class</fest:value>
+                </fest:attribute> 
+                <fest:attribute name="inv_got_type">
+                    <fest:value>obj['type']</fest:value>
+                </fest:attribute>
+                <fest:attribute name="inv_got_id">
+                    <fest:value>obj['id']</fest:value>
+                </fest:attribute>
+                <fest:attribute name="inv_hold_num">
+                    <fest:value>params.type</fest:value>
+                </fest:attribute>
+                <fest:if test="obj['type'] == 'engine'">
+                    <fest:attribute name="speed">
+                        <fest:value>obj['speed']</fest:value>
+                    </fest:attribute>
+                </fest:if>
+                <fest:if test="obj['type'] == 'generator'">
+                    <fest:attribute name="block">
+                        <fest:value>obj['block']</fest:value>
+                    </fest:attribute>
+                </fest:if>
+            </fest:attributes>
+                <fest:if test="obj['id'] != 0">
+                    <fest:element name="img"> 
+                        <fest:attributes> 
+                            <fest:attribute name="class">
+                                <fest:value>params.class2</fest:value>
+                                <fest:space />
+                                <fest:text>draggable</fest:text>
+                            </fest:attribute>
+                                <fest:attribute name="src">
+                                    <fest:text>/images/profile/res/</fest:text>
+                                        <fest:value>obj['id']</fest:value>
+                                    <fest:text>.png</fest:text>
+                                </fest:attribute> 
+                        </fest:attributes>
+                    </fest:element> 
+                </fest:if>
+        </fest:element>
+    </fest:set>
+
     <div class="wrapGate">
       <div class="gateLeft"></div>
       <div class="gateRight"></div>
     </div>
     <div id="holdLeft" class="holdLeft"></div>
     <div id="holdRight" class="holdRight"></div>
+    <div class="inventory_profile">
+        <fest:get name="inventoryElement">
+            <fest:param name="id">object_in_inventory_1</fest:param>
+            <fest:param name="class">place_in_inventory</fest:param>
+            <fest:param name="class2">object_in_inventory</fest:param>
+            <fest:param name="type">hold0</fest:param> 
+        </fest:get>
+
+        <fest:get name="inventoryElement">
+            <fest:param name="id">object_in_inventory_2</fest:param>
+            <fest:param name="class">place_in_inventory</fest:param>
+            <fest:param name="class2">object_in_inventory</fest:param>
+            <fest:param name="type">hold1</fest:param> 
+        </fest:get>
+
+        <fest:get name="inventoryElement">
+            <fest:param name="id">object_in_inventory_3</fest:param>
+            <fest:param name="class">place_in_inventory</fest:param>
+            <fest:param name="class2">object_in_inventory</fest:param>
+            <fest:param name="type">hold2</fest:param> 
+        </fest:get>
+
+        <fest:get name="inventoryElement">
+            <fest:param name="id">object_in_inventory_4</fest:param>
+            <fest:param name="class">place_in_inventory</fest:param>
+            <fest:param name="class2">object_in_inventory</fest:param>
+            <fest:param name="type">hold3</fest:param> 
+        </fest:get>
+
+        <fest:get name="inventoryElement">
+            <fest:param name="id">object_in_inventory_5</fest:param>
+            <fest:param name="class">place_in_inventory</fest:param>
+            <fest:param name="class2">object_in_inventory</fest:param>
+            <fest:param name="type">hold4</fest:param> 
+        </fest:get>
+
+        <fest:get name="inventoryElement">
+            <fest:param name="id">object_in_inventory_6</fest:param>
+            <fest:param name="class">place_in_inventory</fest:param>
+            <fest:param name="class2">object_in_inventory</fest:param>
+            <fest:param name="type">hold5</fest:param> 
+        </fest:get>
+        
+    </div>
     
     <!---->
     <form action="/azaza" enctype="multipart/form-data">
       <div class="profile__email"><fest:value>profile.email</fest:value></div>
-      <div class="profile__image"><img src="{profile.avatar}"/></div>
+      <div class="profile__image">
+        <img src="{profile.avatar}"/>
+    </div>
     </form>
   </div>
 
   <div class="rightBlock">
     <div class="close_profile"></div>
-    <div class="ava_profile"></div>
-    <div class="rank rank8"></div>
+    <div class="ava_profile">
+        <fest:element name="img">
+            <fest:attributes>
+                <fest:attribute name="src">
+                    <fest:text>/images/profile/races/</fest:text>
+                    <fest:value>profile.get('race')</fest:value>
+                    <fest:text>/</fest:text>
+                    <fest:value>profile.get('avatar')</fest:value>
+                    <fest:text>.jpg</fest:text>
+                </fest:attribute> 
+            </fest:attributes>
+        </fest:element>
+    </div> 
+    <div class="rank">
+        <fest:element name="img">
+            <fest:attributes>
+                <fest:attribute name="src">
+                    <fest:text>/images/profile/rank/</fest:text>
+                    <fest:value>profile.get('rank')</fest:value>
+                    <fest:text>.png</fest:text>
+                </fest:attribute> 
+            </fest:attributes>
+        </fest:element>
+    </div>
+    <div class="name_profile"><fest:value>profile.get('login')</fest:value></div>
+
     <div class="wrap_ability">
         <div id="accuracy_skill" class="block_ability">
             <div class="ability"></div>

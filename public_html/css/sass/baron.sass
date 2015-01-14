@@ -1,0 +1,61 @@
+.wrapper_baron
+    position: relative
+    overflow: hidden
+    height: 270px
+    width: 345px
+    margin-right: -25px
+
+.wrapper_baron.color_baron
+    height: 180px
+
+#wrapper_baron_icons_style
+    height: 130px
+
+.scroller_baron
+    height: 100%
+    width: 98%
+    overflow-y: scroll
+
+.scroller_baron::-webkit-scrollbar
+    width: 0
+
+.baron .scroller__bar-wrapper
+    opacity: 1
+
+.scroller__bar-wrapper
+    position: absolute
+    z-index: 3
+    top: 10px
+    bottom: 10px
+    right: 5px
+    width: 5px
+    background-color: #e9e9e9
+    pointer-events: none
+    opacity: 0
+
+.scroller__bar
+    position: absolute
+    z-index: 1
+    width: 5px
+    background: #a2a2a2
+    opacity: 0
+    -webkit-transition: opacity .2s linear
+    transition: opacity .2s linear
+    pointer-events: auto
+
+.container_baron
+    width: 340px
+
+.scroller__bar:hover
+    opacity: .1
+    cursor: pointer
+
+.baron .scroller__bar
+    opacity: 1
+
+.baron_h .scroller__bar_h
+    opacity: .6
+    bottom: 30px
+
+#wrapper_baron_type_fonts
+    height: 120px

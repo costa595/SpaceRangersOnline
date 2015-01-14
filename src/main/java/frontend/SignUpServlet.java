@@ -1,7 +1,8 @@
 package frontend;
 
-import Users.AccountService;
 import Users.UserProfile;
+import Users.UserProfileImpl;
+import base.AccountService;
 import constants.CodeResponses;
 import org.json.simple.JSONObject;
 
@@ -37,7 +38,7 @@ public class SignUpServlet extends HttpServlet {
 
         response.setStatus(HttpServletResponse.SC_OK);
 
-        UserProfile profile = new UserProfile(login, email, password, avatar, race);
+        UserProfile profile = new UserProfileImpl(login, email, password, avatar, race);
         CodeResponses resp = null;
         try {
             resp = accountService.register(profile);

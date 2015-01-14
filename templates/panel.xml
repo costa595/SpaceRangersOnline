@@ -1,10 +1,66 @@
 <fest:template xmlns:fest="http://fest.mail.ru" context_name="user">
     <fest:choose>
         <fest:when test="user.isLogined()">
+            <div id="panel_logined" class="panel_logined">
             <button class="panel__button panel__button_logout js-logout">Выход</button>
-            <a href="#profile" class="panel__button panel__button_profile">Профиль</a>
-            <div class="panel__text panel__text_login"><fest:value>user.get('login')</fest:value></div>
-            <a href="#scoreboard" class="panel__button panel__button_rating">Рейтинг</a>
+                <div class="player_name">
+                    <fest:value>user.get('login')</fest:value>
+                </div>
+                <div class="player_level">
+                    <fest:value>user.get('level') + 1</fest:value>
+                </div>
+                <div class="player_race">
+                    <fest:element name="img">
+                        <fest:attributes>
+                             <fest:attribute name="src">
+                                <fest:text>/images/createprofile/</fest:text>
+                                <fest:value>user.get('race')</fest:value>
+                                <fest:text>.png</fest:text>
+                            </fest:attribute> 
+                        </fest:attributes>
+                    </fest:element>
+                </div>
+                <div class="player_ava">
+                    <fest:element name="img">
+                        <fest:attributes>
+                            <fest:attribute name="src">
+                                <fest:text>/images/profile/races/</fest:text>
+                                <fest:value>user.get('race')</fest:value>
+                                <fest:text>/</fest:text>
+                                <fest:value>user.get('avatar')</fest:value>
+                                <fest:text>.jpg</fest:text>
+                            </fest:attribute> 
+                        </fest:attributes>
+                    </fest:element>
+                </div>
+                <div class="player_exp">
+                    <div class="exp"></div>
+                </div>
+                <div class="player_hp">
+                    <div class="hp_count">75/100</div>
+                    <div class="hp"></div>
+                </div>
+                <div class="player_mp">
+                    <div class="mp_count">34/50</div>
+                    <div class="mp"></div>
+                </div>
+            </div>
+            <div class="panel_enemy">
+                <div class="enemy_name">
+                    Михаил
+                </div>
+                <div class="enemy_hp">
+                    <div class="hp_count">75/100</div>
+                    <div class="hp"></div>
+                </div>
+                <div class="enemy_mp">
+                    <div class="mp_count">34/50</div>
+                    <div class="mp"></div>
+                </div>
+                <div class="enemy_ava">
+                    <img src="/images/createprofile/race_human.png"/>
+                </div>
+            </div>
         </fest:when>
         <fest:otherwise>
             <a href="#createProfile" class="panel__button panel__button_createprofile">Создать профиль</a>

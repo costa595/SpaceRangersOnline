@@ -8,7 +8,8 @@ define([
 			inGame: false
 		},
 		initialize: function() {
-			// this.connection = new WebSocket('ws://127.0.0.1:8000/api/v1/pull');
+			this.login = '';
+			this.health = 100; //Значение по умолчанию
 			this.x = 0; //на какое расстояние перемещаемся
 			this.y = 0;
 			this.position = new Object(); //Текущая позиция относиткльно центра, по ней и рендерим корабль
@@ -18,36 +19,52 @@ define([
 			// this.listenTo(EnemyView, 'move:start', this.palyerMoved);
 			// this.listenTo(EnemyView, 'move:done', this.palyerMoved);
 			this.inGame = false;
-			this.inMove = false;
+			this.palyerIsMoved = false;
+			this.setNewPosition = false;
+			this.ownDeltha = new Object(); //Расстояние, на которое надо переместиться иходя из перемещеняи пользователя (пришло с сервера)
+			this.ownDeltha.x = 0;
+			this.ownDeltha.y = 0;
 
+			this.palyerDeltha = new Object(); //Расстояние, на которое происходит перемещение корабля, инициированное пользователем
+			this.palyerDeltha.x = 0;
+			this.palyerDeltha.y = 0;
+
+			this.marked = false;
 		},
 		palyerMoved: function(coords) {
 			//coords - на сколько переместить корабль
-			// console.log('palyerMoved new coords ', coords, this.get("x"), this.get("y"), this.position, this.inMove, this.get("inMove"));
-			if (this.get("inMove")) {
-				coords.x = this.get("x") - coords.x;
-				coords.y = this.get("y") - coords.y;
-			}
-
-			this.set(coords);
+			// this.set(coords);
+			console.log('palyerMoved')
+			this.palyerDeltha.x = coords.x;
+			this.palyerDeltha.y = coords.y;
+			this.trigger('enemyMove:start');
 		},
-		calculatePosition: function() {},
 		getPosition: function() {
 			return this.position;
 		},
-		initPosition: function(coords) {
+		setPosition: function (coords) {
+			this.position.x = coords.x;
+			this.position.y = coords.y;
+		},
+		initCoords: function(coords) {
 			// this.set(coords);
 			var newPositions = new Object();
 			newPositions.x = coords.x - this.position.x - this.x;
 			newPositions.y = coords.y - this.position.y - this.y;
 			newPositions.inGame = true;
 			this.set(newPositions);
-			// console.log('modelInited!')
-			this.trigger('modelInited');
+			this.trigger('updateView');
 		},
-		setPosition: function(coords) {
+		attacked: function(data){
+			this.health = data.newHealth;
+			if (this.health == 0){
+				this.inGame = false;
+			}
+			this.trigger('updateView');
+		},
+		setCoords: function(coords) {
 			// this.position = coords;
-			// console.log('SET POSITION COORDS', coords)
+			this.setNewPosition = true;
 			var newPositions = new Object();
 			newPositions.x = coords.x - this.position.x;
 			newPositions.y = coords.y - this.position.y;
@@ -60,17 +77,32 @@ define([
 				newPositions.inGame = true;
 				this.inGame = true;
 			}
-			// console.log('setPosition this.position', this.x, this.y, coords, this.position, sunCoords, newPositions.x, newPositions.y)
-
-			this.set(newPositions);
+			this.ownDeltha.x = newPositions.x;
+			this.ownDeltha.y = newPositions.y;
+			// this.set(newPositions);
+			this.trigger('enemyMove:start');
+			//Тут отраотает триггер на model change и строчка нижу выполнится после обработки
+			this.setNewPosition = false;
 		},
 		changeX: function(newX) {
+			if (Math.abs(this.ownDeltha.x) > 2)
+				this.ownDeltha.x -= newX;
+			if (Math.abs(this.palyerDeltha.x) > 2)
+				this.palyerDeltha.x -= newX;
 			this.position.x += newX;
 		},
 		changeY: function(newY) {
+			if (Math.abs(this.ownDeltha.y) > 2)
+				this.ownDeltha.y -= newY;
+			if (Math.abs(this.palyerDeltha.y) > 2)
+				this.palyerDeltha.y -= newY;
 			this.position.y += newY;
-		}
+		},
+		markThisShip: function() {
+			this.marked = true;
+			this.trigger('updateView');
+		},
 	});
 
-	return new EnemyModel();
+	return EnemyModel;
 });

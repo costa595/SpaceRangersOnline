@@ -25,7 +25,7 @@ define([
         this.$container.append(panelView.render().$el);
       },
       subscribe: function (views) {
-        for (var i in views) {
+        for (var i = 0; i < views.length; i++) {
           this.listenTo(views[i], 'show', this.add);
         }
       },
@@ -33,7 +33,7 @@ define([
         this.stopListening(view);
       },
       add: function (view) {
-        console.log('add', view);
+        // console.log('add', view);
         this.$el.find('#page').html(view.$el);
       }
   });

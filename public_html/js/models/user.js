@@ -30,12 +30,8 @@ define([
         success: function(resp) {
           if (resp.status === 200) {
             console.log('resp', resp)
-            that.set({
-              'login': resp.login,
-              'email': resp.email,
-              'avatar': resp.avatar,
-              'sessionId': resp.sessionId
-            });
+            that.set(resp);
+            // that.fetch();
             that.trigger('login:ok');
           }
           else if (resp.status === 403) {
@@ -73,3 +69,35 @@ define([
   return new UserModel();
 
 });
+
+
+// define([
+//     'jquery',
+//     'backbone',
+//     'userSync'
+// ], function($, Backbone, userSync) {
+//   var UserModel = Backbone.Model.extend({
+//     initialize: function() {
+//       this.fetch();
+//     },
+//     sync: userSync,
+//     isLogined: function() {
+//       return (this.has('isLogined'));
+//     },
+//     logout: function() {
+//         this.save();
+//     },
+//     login: function (data) {
+//       console.log(data)
+//       this.set(data);
+//       this.save();
+//     },
+//     signup: function(data) {
+//         this.set(data);
+//         this.save();
+//     }
+//   });
+  
+//   return new UserModel();
+
+// });

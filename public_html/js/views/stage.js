@@ -23,8 +23,10 @@ define([
             this.model.ypos = 1500 - (this.el.height / 2);
             var that = this;
             resources.onReady(function () {
-                // console.log('res stage', resources.get('/images/space1.jpg'))
-                that.ctx.drawImage(resources.get('/images/space1.jpg'), that.model.xpos, that.model.ypos, that.el.width, that.el.height, 0, 0, that.el.width, that.el.height);
+                try {
+                    that.ctx.drawImage(resources.get('/images/space1.jpg'), that.model.xpos, that.model.ypos, that.el.width, that.el.height, 0, 0, that.el.width, that.el.height);
+                } catch (e) {}
+                
             });
             this.ctx.stroke();
             return this;

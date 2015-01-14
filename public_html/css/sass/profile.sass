@@ -6,6 +6,13 @@
     height: 615px
     background: url('/images/profile/profile.png')
 
+.ship_view
+    position: absolute
+    top: 215px
+    left: 150px
+    width: 164px
+    height: 164px
+    
 /*id Cell*/
 #cell_weapon_1_1
     top: 25px
@@ -60,6 +67,9 @@
 #cell_engine
     top: 209px
     left: 44px
+    img
+        margin-left: 10px
+        margin-top: 0px
 
 #cell_engine.damage
     background: url('/images/profile/cell/engine_damage.png')
@@ -102,10 +112,14 @@
 /*class Cell in profile*/
 .object_in_cell
     cursor: pointer
-    margin-top: 10px
-    margin-left: 15px
+    margin-top: 7px
+    margin-left: 20px
+
 .cell
     position: absolute
+    img
+        width: 65px
+        height: 65px
 
 .cell_right_bottom
     width: 97px
@@ -212,6 +226,56 @@
     background: url('/images/profile/cell/na_cell_weapon_2_3.png')
 
 /*end cell*/
+#speed_static
+    left: 352px
+    top: 28px
+
+#speed_static_count
+    left: 352px
+    top: 44px
+
+#defence_static
+    left: 352px
+    top: 59px
+
+#defence_static_count
+    left: 352px
+    top: 75px
+
+.name_static
+    color: #336679
+    font-size: 12px
+    width: 85px
+    text-align: center
+    position: absolute
+
+.name_static_count
+    font-size: 11px
+    width: 85px
+    text-align: center
+    position: absolute
+    color: black
+
+.inventory_profile
+    position: absolute
+    bottom: 27px
+    left: 165px
+    width: 260px
+    height: 39px
+
+    .place_in_inventory
+        cursor: pointer
+        width: 38px
+        height: 100%
+        margin-right: 5px
+        float: left
+
+        .object_in_inventory
+            margin-left: 5px
+            margin-top: 8px
+            width: 26px
+            height: 22.8px
+
 
 .holdLeft
     position: absolute
@@ -226,6 +290,10 @@
     &:active
         background: url('/images/profile/holdLeftPress.png')
 
+.holdLeft.Na
+    cursor: default
+    background: url('/images/profile/holdLeftNa.png')
+
 .holdRight
     position: absolute
     top: 551px
@@ -238,6 +306,10 @@
         background: url('/images/profile/holdRightHover.png')
     &:active
         background: url('/images/profile/holdRightPress.png')
+
+.holdRight.Na
+    cursor: default
+    background: url('/images/profile/holdRightNa.png')
 
 .wrapGate
     cursor: pointer
@@ -283,10 +355,19 @@
     z-index: 10
     width: 93px
     height: 104px
-    background: url('/images/profile/ava.png')
     position: absolute
     top: 27px
     left: 19px
+    img
+        width: 100%
+        height: 100%
+
+.name_profile
+    font-size: 12px
+    position: absolute
+    top: 67px
+    left: 120px
+    z-index: 100
 
 .rank
     z-index: 100

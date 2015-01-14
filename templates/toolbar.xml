@@ -1,6 +1,17 @@
 <fest:template xmlns:fest="http://fest.mail.ru" context_name="toolbar">
 	<div class="weapon_toolbar"></div>
 	<div class="toolbar_menu"></div>
+	<div class="money">
+		<span>
+			<fest:value>toolbar.get('cr')</fest:value>
+		</span>
+	</div>
+	<div class="moneyGold">
+		<span>
+			<fest:value>toolbar.get('kr')</fest:value>
+		</span>
+	</div>
+	
 	<div class="right_part_toolbar">
 		<div class="toolbar_left_button toolbar_ship"></div>
 		<div class="toolbar_left_button toolbar_raiting"></div>

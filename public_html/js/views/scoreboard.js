@@ -11,9 +11,7 @@ define([
     initialize: function () {
       this.listenTo(this.collection, 'reset', this.insertInfo)
     },
-    template: function () {
-      return tmpl(this.collection.toJSON());
-    },
+    template: tmpl,
     render: function() {
       this.collection.fetch({reset: true});
       return this;
@@ -22,7 +20,7 @@ define([
       this.trigger('show', this);
     },
     insertInfo: function () {
-      this.$el.html(this.template());
+      this.$el.html(this.template(this.collection.toJSON()));
     }
   });
 

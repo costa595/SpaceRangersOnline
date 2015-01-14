@@ -3,8 +3,9 @@ define([
     'backbone',
     'views/stage',
     'views/sun',
+    'views/base',
     'views/enemy',
-], function (_, Backbone, stageView, sunView, EnemyView) {
+], function (_, Backbone, stageView, sunView, BaseView, EnemyView) {
 
     var MotionController = function () {
         this.intervals = {};
@@ -21,7 +22,7 @@ define([
 
     MotionController.prototype.delInterval = function (names) {
         if (names instanceof Array) {
-            for (i in names) {
+            for (i = 0; i < names.length; i++) {
                 clearInterval(this.intervals[names[i]]);
             }
         }
@@ -37,8 +38,13 @@ define([
     motionController.listenTo(stageView, 'move:start', motionController.newInterval);
     motionController.listenTo(sunView, 'move:done', motionController.delInterval);
     motionController.listenTo(sunView, 'move:start', motionController.newInterval);
-    motionController.listenTo(EnemyView, 'move:done', motionController.delInterval);
-    motionController.listenTo(EnemyView, 'move:start', motionController.newInterval);
+    // motionController.listenTo(BaseView, 'move:done', motionController.delInterval);
+    // motionController.listenTo(BaseView, 'move:start', motionController.newInterval);
 
+    motionController.addViewListener = function(curView) {
+        this.listenTo(curView, 'move:done', this.delInterval);
+        this.listenTo(curView, 'move:start', this.newInterval);
+    }
 
+    return motionController;
 });

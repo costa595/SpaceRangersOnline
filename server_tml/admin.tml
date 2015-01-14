@@ -6,6 +6,9 @@
 <p>Статус сервера: ${status}</p>
 <p>Онлайн: ${online}</p>
 <p>Зарегистрировано: ${registered}</p>
-<a href="admin?shutdown=1000"><input type="button" value="Выключение"></a>
+<a href="admin?shutdown=1000"><input type="button" value="Выключение"></a><br><br>
+<form action="/admin">
+<p><input type=text name="ban"><input type="submit"></p>
+</form>
 </body>
 </html>

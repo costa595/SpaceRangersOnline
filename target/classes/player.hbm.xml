@@ -30,5 +30,23 @@
         <property name="radar" column="radar" type="java.lang.Integer"/>
         <property name="scaner" column="scaner" type="java.lang.Integer"/>
         <property name="ship" column="ship" type="java.lang.Integer"/>
+        <property name="skill0" column="skill0" type="java.lang.Integer"/>
+        <property name="skill1" column="skill1" type="java.lang.Integer"/>
+        <property name="skill2" column="skill2" type="java.lang.Integer"/>
+        <property name="skill3" column="skill3" type="java.lang.Integer"/>
+        <property name="skill4" column="skill4" type="java.lang.Integer"/>
+        <property name="skill5" column="skill5" type="java.lang.Integer"/>
+        <property name="score" column="score" type="java.lang.Integer"/>
+        <property name="hold0" column="hold0" type="java.lang.Integer"/>
+        <property name="hold1" column="hold1" type="java.lang.Integer"/>
+        <property name="hold2" column="hold2" type="java.lang.Integer"/>
+        <property name="hold3" column="hold3" type="java.lang.Integer"/>
+        <property name="hold4" column="hold4" type="java.lang.Integer"/>
+        <property name="hold5" column="hold5" type="java.lang.Integer"/>
+        <property name="killmobs" column="killmobs" type="java.lang.Integer"/>
+        <property name="killplayers" column="killplayers" type="java.lang.Integer"/>
+        <property name="exp" column="exp" type="java.lang.Integer"/>
+        <property name="level" column="level" type="java.lang.Integer"/>
+        <property name="hp" column="hp" type="java.lang.Integer"/>
     </class>
 </hibernate-mapping>

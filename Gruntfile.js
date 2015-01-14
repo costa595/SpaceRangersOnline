@@ -19,7 +19,11 @@ module.exports = function (grunt) {
                   'public_html/css/sass/createProfile.sass',
                   'public_html/css/sass/profile.sass',
                   'public_html/css/sass/toolbar.sass',
+                  'public_html/css/sass/rating.sass',
+                  'public_html/css/sass/baron.sass',
+                  'public_html/css/sass/profileBarTop.sass',
                   'public_html/public_html/css/sass/fonts.sass'
+                  
                 ],
                 tasks: ['sass'],
                 options: {
@@ -27,16 +31,6 @@ module.exports = function (grunt) {
                     livereload: true
                 }
             },
-//            requirejs: {
-//                files: [
-//                    'js/**/*.js',
-//                    'js/*.js'
-//                ],
-//                tasks: ['requirejs'],
-//                options: {
-//                    atBegin: true
-//                }
-//            },
             server: {
                 files: [
                     'public_html/js/**/*.js',
@@ -67,6 +61,7 @@ module.exports = function (grunt) {
             }
         },
         sass: {
+            style: "compressed",
             dist: {
                 files: {
                     'public_html/css/main.css': 'public_html/css/sass/main.sass'
@@ -74,6 +69,16 @@ module.exports = function (grunt) {
             }
         },
         requirejs: {
+            build: { /* Подзадача */
+                options: {
+                    almond: true,
+                    baseUrl: "public_html/js",
+                    mainConfigFile: "public_html/js/config.js",
+                    name: "main",
+                    optimize: "none",
+                    out: "public_html/js/build/main.js"
+                }
+            },
             compile: {
                 options: {
                     baseUrl: 'js',
@@ -88,12 +93,39 @@ module.exports = function (grunt) {
                 }
             }
         },
+        concat: {
+            build: { /* Подзадача */
+                separator: ';\n',
+                src: [
+                      'public_html/js/lib/almond.js',
+                      'public_html/js/build/main.js'
+                ],
+                dest: 'public_html/js/build.js'
+            }
+        },
+        uglify: {
+            build: { /* Подзадача */
+                files: {
+                    'public_html/js/build.min.js': 
+                          ['public_html/js/build.js']
+                }
+            }
+        },
     });
 
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-fest');
     grunt.loadNpmTasks('grunt-contrib-sass');
     grunt.loadNpmTasks('grunt-contrib-requirejs');
+    grunt.loadNpmTasks('grunt-contrib-uglify');
+    grunt.loadNpmTasks('grunt-contrib-concat');
+    
     grunt.registerTask('default', ['watch']);
-    console.log('azaza');
+    grunt.registerTask(
+        'build',
+        [
+            'fest', 'requirejs:build',
+            'concat:build', 'uglify:build'
+        ]
+    );
 };

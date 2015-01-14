@@ -1,0 +1,27 @@
+CACHE MANIFEST
+# v0.0.11
+images/sun.png
+images/space1.jpg
+images/bases/MC.png
+images/bases/RC.png
+images/cursors/move_space_click.gif
+images/createProfile.png
+images/fonCreateProfile.jpg
+images/profile/close.png
+images/profile/closeHover.png
+images/profile/closePress.png
+images/profile/gateLeft.png
+images/profile/gateRight.png
+images/profile/holdLeft.png
+images/profile/holdRight.png
+images/profile/holdLeftNa.png
+images/profile/holdLeftPress.png
+images/profile/holdRight.png
+images/profile/holdRightHover.png
+images/profile/holdRightPress.png
+images/profile/holdRightNa.png
+images/profile/profile.png
+images/profile/cell/active_cell_weapon_2_1.png
+images/profile/cell/active_cell_weapon_2_2.png
+images/profile/cell/active_cell_weapon_2_3.png
+images/profile/cell/active_left_bottom_width.png

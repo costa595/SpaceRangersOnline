@@ -1,3 +1,5 @@
+@import profileBarTop
+
 @import variables
 
 @import fonts
@@ -12,6 +14,11 @@
 
 @import toolbar
 
+@import rating
+
+
+
+@import baron
 
 .page
     width: 100%
@@ -30,20 +37,6 @@
     font-size: 22px
     margin-top: 20px
 
-.panel
-    display: block
-    position: absolute
-    z-index: 2
-    top: 0
-    left: 0
-    width: 200px
-    height: 250px
-    background-image: url("/images/left-panel_notlogined.png")
-    background-position: right center
-
-.panel_logined
-    background-image: url("/images/left-panel.png")
-    background-position: right center
 
 .panel__name
     display: block
@@ -63,8 +56,8 @@
 
 .panel__button_logout
     background-color: #c0392b
-    top: 140px
-    left: 90px
+    top: 180px
+    left: 45px
 
 .panel__button_rating
     top: 110px
@@ -155,4 +148,5 @@
 .score
     width: 500px
     font-size: 20px
-    color: #fff  
+    color: #fff
+

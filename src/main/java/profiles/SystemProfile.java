@@ -8,45 +8,40 @@ public class SystemProfile {
     private String name;
     private String star;
     private String background;
-//    private String planetId1;
-//    private String planetName1;
-//    private String planetRace1;
-//    private String planetSprite1;
-//    private String planetTexture1;
-//    private String planetX1;
-//    private String planetSpeed1;
-//    private String planetCource1;
-
 
     public SystemProfile(String id, String name, String star, String background) {
         this.id = id;
         this.name = name;
         this.star = star;
         this.background = background;
-//        this.planetId1 = planetId1;
-//        this.planetName1 = planetName1;
-//        this.planetRace1 = planetRace1;
-
     }
 
     public String getId() {return id;}
     public String getName() {return name;}
     public String getStar() {return star;}
     public String getBackground() {return background;}
-//    public String getPlanetId1() {return planetId1;}
-//    public String getPlanetName1() {return planetName1;}
-//    public String getPlanetRace1() {return planetRace1;}
-//    public String getPlanetSprite1() { return planetSprite1; }
-//    public String getPlanetTexture1() {
-//        return planetTexture1;
-//    }
-//    public String getPlanetX1() {
-//        return planetX1;
-//    }
-//    public String getPlanetSpeed1() {
-//        return planetSpeed1;
-//    }
-//    public String getPlanetCource1() {
-//        return planetCource1;
-//    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        SystemProfile that = (SystemProfile) o;
+
+        if (background != null ? !background.equals(that.background) : that.background != null) return false;
+        if (id != null ? !id.equals(that.id) : that.id != null) return false;
+        if (name != null ? !name.equals(that.name) : that.name != null) return false;
+        if (star != null ? !star.equals(that.star) : that.star != null) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (name != null ? name.hashCode() : 0);
+        result = 31 * result + (star != null ? star.hashCode() : 0);
+        result = 31 * result + (background != null ? background.hashCode() : 0);
+        return result;
+    }
 }

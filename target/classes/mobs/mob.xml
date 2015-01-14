@@ -1,0 +1,22 @@
+<mobs>
+    <mob>
+        <id>1</id>
+        <name>Штип -1-</name>
+        <weapon0>21</weapon0>
+        <weapon1>0</weapon1>
+        <weapon2>0</weapon2>
+        <weapon3>0</weapon3>
+        <weapon4>0</weapon4>
+        <block>0</block>
+        <blockbygen>5</blockbygen>
+        <speed>100</speed>
+        <krit>0</krit>
+        <manevr>0</manevr>
+        <drop0>0</drop0>
+        <drop1>0</drop1>
+        <drop2>0</drop2>
+        <drop3>0</drop3>
+        <drop4>0</drop4>
+        <drop5>0</drop5>
+    </mob>
+</mobs>

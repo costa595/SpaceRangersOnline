@@ -1,0 +1,108 @@
+<fest:template xmlns:fest="http://fest.mail.ru" context_name="rating">
+    <div class="background_rating">
+    	
+    	<div class="ava_best_player best_warrior">1</div>
+    	<div class="ava_best_player best_trade">1</div>
+    	<div class="ava_best_player best_corsar">1</div>
+    	
+    	<div class="position_table">
+
+    		<fest:script>
+    			var ratingObj = rating.get('mainObj');
+    		</fest:script> 
+    		<ul>
+			<fest:each iterate="ratingObj" index="i">
+				<!-- <div class="table_rating"> -->
+				<fest:element name="li">
+					<fest:attributes>
+						<fest:attribute name="num">
+							<fest:value>i</fest:value>
+						</fest:attribute>
+						<fest:attribute name="class">
+							<fest:text>table_rating</fest:text>
+						</fest:attribute>
+						<fest:attribute name="id">
+							<fest:value>i</fest:value>
+						</fest:attribute>
+					</fest:attributes>
+
+					<div class="rating_mini_block rating_table_count">
+						<span>
+							<fest:value>i</fest:value>
+						</span>
+					</div>
+
+					<div class="rating_mini_block rating_table_name">
+						<span>
+							<fest:value>ratingObj[i]['login']</fest:value>
+						</span>
+					</div>
+
+					<div class="rating_mini_block rating_table_character">
+						<span>Герой</span>
+					</div>
+
+					<div class="rating_mini_block rating_table_race">
+						<fest:element name="img">
+				            <fest:attributes>
+				                <fest:attribute name="src">
+				                    <fest:text>/images/rating/</fest:text>
+				                    <fest:value>ratingObj[i]['race']</fest:value>
+				                    <fest:text>.png</fest:text>
+				                </fest:attribute> 
+				            </fest:attributes>
+				        </fest:element>
+					</div>
+
+					<div class="rating_mini_block rating_table_rank">
+						<div class="rank_rating rank_rating_1">
+							<fest:element name="img">
+					            <fest:attributes>
+					                <fest:attribute name="src">
+					                    <fest:text>/images/rating/rank/</fest:text>
+					                    <fest:value>ratingObj[i]['rank']</fest:value>
+					                    <fest:text>.png</fest:text>
+					                </fest:attribute> 
+					            </fest:attributes>
+					        </fest:element>
+						</div>
+					</div>
+
+					<div class="rating_mini_block rating_table_exp">
+						<span>
+							<fest:value>ratingObj[i]['score']</fest:value>
+						</span>
+					</div>
+
+				</fest:element>
+				<!-- </div> -->
+			</fest:each>
+
+			<li class="table_rating_info rating_open" style="display : none">
+				<div class="rating_info_ava"></div>
+				<div class="rating_count_kill">
+					<div class="name_table_rating_kill">Убил:</div>
+					<table class="table_rating_count_kill">
+						<tr>
+							<td class="rating_td rating_kill_first">Доминаторы</td>
+							<td class="rating_td rating_kill_second">Пираты</td>
+							<td class="rating_td rating_kill_third">Игроки</td>
+							<td class="rating_td rating_kill_fourth">Всего</td>
+						</tr>
+						<tr>
+							<td class="rating_td rating_kill_first mobs"></td>
+							<td class="rating_td rating_kill_second">0</td>
+							<td class="rating_td rating_kill_third players"></td>
+							<td class="rating_td rating_kill_fourth sum"></td>
+						</tr>
+					</table>
+				</div>
+			</li>
+
+		</ul>
+    	</div>
+    	<div class="close_rating"></div>
+	</div>
+
+
+</fest:template>

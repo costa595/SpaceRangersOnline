@@ -1,0 +1,202 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'node',
+1 verbose cli   '/usr/local/bin/npm',
+1 verbose cli   'install',
+1 verbose cli   'grunt',
+1 verbose cli   'full',
+1 verbose cli   '--save-dev' ]
+2 info using npm@1.4.28
+3 info using node@v0.10.32
+4 verbose readDependencies using package.json deps
+5 verbose cache add [ 'grunt', null ]
+6 verbose cache add name=undefined spec="grunt" args=["grunt",null]
+7 verbose parsed url { protocol: null,
+7 verbose parsed url   slashes: null,
+7 verbose parsed url   auth: null,
+7 verbose parsed url   host: null,
+7 verbose parsed url   port: null,
+7 verbose parsed url   hostname: null,
+7 verbose parsed url   hash: null,
+7 verbose parsed url   search: null,
+7 verbose parsed url   query: null,
+7 verbose parsed url   pathname: 'grunt',
+7 verbose parsed url   path: 'grunt',
+7 verbose parsed url   href: 'grunt' }
+8 verbose cache add [ 'full', null ]
+9 verbose cache add name=undefined spec="full" args=["full",null]
+10 verbose parsed url { protocol: null,
+10 verbose parsed url   slashes: null,
+10 verbose parsed url   auth: null,
+10 verbose parsed url   host: null,
+10 verbose parsed url   port: null,
+10 verbose parsed url   hostname: null,
+10 verbose parsed url   hash: null,
+10 verbose parsed url   search: null,
+10 verbose parsed url   query: null,
+10 verbose parsed url   pathname: 'full',
+10 verbose parsed url   path: 'full',
+10 verbose parsed url   href: 'full' }
+11 silly lockFile 20ff3fd8-grunt grunt
+12 verbose lock grunt /Users/mihailcizikov/.npm/20ff3fd8-grunt.lock
+13 silly lockFile 52e6d8ab-full full
+14 verbose lock full /Users/mihailcizikov/.npm/52e6d8ab-full.lock
+15 silly lockFile 20ff3fd8-grunt grunt
+16 silly lockFile 20ff3fd8-grunt grunt
+17 silly lockFile 52e6d8ab-full full
+18 silly lockFile 52e6d8ab-full full
+19 verbose addNamed [ 'grunt', '' ]
+20 verbose addNamed [ null, '*' ]
+21 silly lockFile 55f1ff24-grunt grunt@
+22 verbose lock grunt@ /Users/mihailcizikov/.npm/55f1ff24-grunt.lock
+23 verbose addNamed [ 'full', '' ]
+24 verbose addNamed [ null, '*' ]
+25 silly lockFile 13632149-full full@
+26 verbose lock full@ /Users/mihailcizikov/.npm/13632149-full.lock
+27 silly addNameRange { name: 'grunt', range: '*', hasData: false }
+28 silly addNameRange { name: 'full', range: '*', hasData: false }
+29 verbose request where is /full
+30 verbose request registry https://registry.npmjs.org/
+31 verbose request id 8c95dc34f2d96de0
+32 verbose url raw /full
+33 verbose url resolving [ 'https://registry.npmjs.org/', './full' ]
+34 verbose url resolved https://registry.npmjs.org/full
+35 verbose request where is https://registry.npmjs.org/full
+36 info trying registry request attempt 1 at 00:20:32
+37 http GET https://registry.npmjs.org/full
+38 verbose request where is /grunt
+39 verbose request registry https://registry.npmjs.org/
+40 verbose url raw /grunt
+41 verbose url resolving [ 'https://registry.npmjs.org/', './grunt' ]
+42 verbose url resolved https://registry.npmjs.org/grunt
+43 verbose request where is https://registry.npmjs.org/grunt
+44 info trying registry request attempt 1 at 00:20:32
+45 verbose etag "5TR2LN2UA0ZPXGV3QM00AABK1"
+46 http GET https://registry.npmjs.org/grunt
+47 http 200 https://registry.npmjs.org/grunt
+48 silly registry.get cb [ 200,
+48 silly registry.get   { date: 'Tue, 02 Dec 2014 21:20:32 GMT',
+48 silly registry.get     server: 'CouchDB/1.5.0 (Erlang OTP/R16B03)',
+48 silly registry.get     etag: '"3Y0N1NC98YPY51B72SU10DTM1"',
+48 silly registry.get     'content-type': 'application/json',
+48 silly registry.get     'cache-control': 'max-age=60',
+48 silly registry.get     'content-length': '87598',
+48 silly registry.get     'accept-ranges': 'bytes',
+48 silly registry.get     via: '1.1 varnish',
+48 silly registry.get     age: '0',
+48 silly registry.get     'x-served-by': 'cache-ams4132-AMS',
+48 silly registry.get     'x-cache': 'HIT',
+48 silly registry.get     'x-cache-hits': '1',
+48 silly registry.get     'x-timer': 'S1417555232.176386,VS0,VE161',
+48 silly registry.get     vary: 'Accept',
+48 silly registry.get     'keep-alive': 'timeout=10, max=50',
+48 silly registry.get     connection: 'Keep-Alive' } ]
+49 silly addNameRange number 2 { name: 'grunt', range: '*', hasData: true }
+50 silly addNameRange versions [ 'grunt',
+50 silly addNameRange   [ '0.1.0',
+50 silly addNameRange     '0.1.1',
+50 silly addNameRange     '0.1.2',
+50 silly addNameRange     '0.2.0',
+50 silly addNameRange     '0.2.1',
+50 silly addNameRange     '0.2.2',
+50 silly addNameRange     '0.2.3',
+50 silly addNameRange     '0.2.4',
+50 silly addNameRange     '0.2.5',
+50 silly addNameRange     '0.2.6',
+50 silly addNameRange     '0.2.7',
+50 silly addNameRange     '0.2.8',
+50 silly addNameRange     '0.2.9',
+50 silly addNameRange     '0.2.10',
+50 silly addNameRange     '0.2.11',
+50 silly addNameRange     '0.2.12',
+50 silly addNameRange     '0.2.13',
+50 silly addNameRange     '0.2.14',
+50 silly addNameRange     '0.2.15',
+50 silly addNameRange     '0.3.0',
+50 silly addNameRange     '0.3.1',
+50 silly addNameRange     '0.3.2',
+50 silly addNameRange     '0.3.3',
+50 silly addNameRange     '0.3.4',
+50 silly addNameRange     '0.3.5',
+50 silly addNameRange     '0.3.6',
+50 silly addNameRange     '0.3.7',
+50 silly addNameRange     '0.3.8',
+50 silly addNameRange     '0.3.9',
+50 silly addNameRange     '0.3.10',
+50 silly addNameRange     '0.3.11',
+50 silly addNameRange     '0.3.12',
+50 silly addNameRange     '0.3.13',
+50 silly addNameRange     '0.3.14',
+50 silly addNameRange     '0.3.15',
+50 silly addNameRange     '0.3.16',
+50 silly addNameRange     '0.3.17',
+50 silly addNameRange     '0.4.0',
+50 silly addNameRange     '0.4.1',
+50 silly addNameRange     '0.4.2',
+50 silly addNameRange     '0.4.3',
+50 silly addNameRange     '0.4.4',
+50 silly addNameRange     '0.4.5',
+50 silly addNameRange     '0.3.13-a',
+50 silly addNameRange     '0.4.0-a',
+50 silly addNameRange     '0.4.0-rc1',
+50 silly addNameRange     '0.4.0-rc2',
+50 silly addNameRange     '0.4.0-rc3',
+50 silly addNameRange     '0.4.0-rc4',
+50 silly addNameRange     '0.4.0-rc5',
+50 silly addNameRange     '0.4.0-rc6',
+50 silly addNameRange     '0.4.0-rc7',
+50 silly addNameRange     '0.4.0-rc8' ] ]
+51 verbose addNamed [ 'grunt', '0.4.5' ]
+52 verbose addNamed [ '0.4.5', '0.4.5' ]
+53 silly lockFile 81abf7ad-grunt-0-4-5 grunt@0.4.5
+54 verbose lock grunt@0.4.5 /Users/mihailcizikov/.npm/81abf7ad-grunt-0-4-5.lock
+55 silly lockFile 81abf7ad-grunt-0-4-5 grunt@0.4.5
+56 silly lockFile 81abf7ad-grunt-0-4-5 grunt@0.4.5
+57 silly lockFile 55f1ff24-grunt grunt@
+58 silly lockFile 55f1ff24-grunt grunt@
+59 http 404 https://registry.npmjs.org/full
+60 verbose headers { date: 'Tue, 02 Dec 2014 21:20:32 GMT',
+60 verbose headers   server: 'CouchDB/1.5.0 (Erlang OTP/R16B03)',
+60 verbose headers   'content-type': 'application/json',
+60 verbose headers   'cache-control': 'max-age=0',
+60 verbose headers   'content-length': '52',
+60 verbose headers   'accept-ranges': 'bytes',
+60 verbose headers   via: '1.1 varnish',
+60 verbose headers   age: '0',
+60 verbose headers   'x-served-by': 'cache-ams4125-AMS',
+60 verbose headers   'x-cache': 'MISS',
+60 verbose headers   'x-cache-hits': '0',
+60 verbose headers   'x-timer': 'S1417555232.175814,VS0,VE786',
+60 verbose headers   'keep-alive': 'timeout=10, max=50',
+60 verbose headers   connection: 'Keep-Alive' }
+61 silly registry.get cb [ 404,
+61 silly registry.get   { date: 'Tue, 02 Dec 2014 21:20:32 GMT',
+61 silly registry.get     server: 'CouchDB/1.5.0 (Erlang OTP/R16B03)',
+61 silly registry.get     'content-type': 'application/json',
+61 silly registry.get     'cache-control': 'max-age=0',
+61 silly registry.get     'content-length': '52',
+61 silly registry.get     'accept-ranges': 'bytes',
+61 silly registry.get     via: '1.1 varnish',
+61 silly registry.get     age: '0',
+61 silly registry.get     'x-served-by': 'cache-ams4125-AMS',
+61 silly registry.get     'x-cache': 'MISS',
+61 silly registry.get     'x-cache-hits': '0',
+61 silly registry.get     'x-timer': 'S1417555232.175814,VS0,VE786',
+61 silly registry.get     'keep-alive': 'timeout=10, max=50',
+61 silly registry.get     connection: 'Keep-Alive' } ]
+62 silly lockFile 13632149-full full@
+63 silly lockFile 13632149-full full@
+64 error 404 404 Not Found: full
+64 error 404
+64 error 404 'full' is not in the npm registry.
+64 error 404 You should bug the author to publish it
+64 error 404 It was specified as a dependency of 'sronline'
+64 error 404
+64 error 404 Note that you can also install from a
+64 error 404 tarball, folder, or http url, or git url.
+65 error System Darwin 14.0.0
+66 error command "node" "/usr/local/bin/npm" "install" "grunt" "full" "--save-dev"
+67 error cwd /Users/mihailcizikov/Documents/sronline
+68 error node -v v0.10.32
+69 error npm -v 1.4.28
+70 error code E404
+71 verbose exit [ 1, true ]

@@ -5,15 +5,16 @@ define([
   'views/game',
   'views/login',
   'views/signup',
-  'views/profile',
+  // 'views/profile',
   'views/scoreboard',
   'views/createProfile',
+  'views/rating',
   'views/app',
   'models/user',
   'models/ship'
-], function($, Backbone, homeView, gameView, loginView, signupView, profileView, scoreboardView,createProfileView ,manager, userModel, ShipModel) {
+], function($, Backbone, homeView, gameView, loginView, signupView, scoreboardView,createProfileView ,ratingView ,manager, userModel, ShipModel) {
   
-  manager.subscribe([homeView, gameView, loginView, signupView, profileView, scoreboardView,createProfileView]);
+  manager.subscribe([homeView, gameView, loginView, signupView, scoreboardView,createProfileView, ratingView]);
   
   var Router = Backbone.Router.extend({
     initialize: function () {
@@ -28,9 +29,10 @@ define([
       'game': 'game',
       'login': 'login',
       'signup': 'signup',
-      'profile': 'profile',
+      // 'profile': 'profile',
       'scoreboard': 'scoreboard',
       'createProfile': 'createProfile',
+      'rating': 'rating',
       '*other': 'default'
     },
     index: function() {
@@ -45,11 +47,14 @@ define([
     signup: function() {
       signupView.show();
     },
-    profile: function() {
-      profileView.show();
-    },
+    // profile: function() {
+    //   profileView.show();
+    // },
     scoreboard: function() {
       scoreboardView.show();
+    },
+    rating: function() {
+      ratingView.show();
     },
     createProfile: function() {
       console.log('createProfile')

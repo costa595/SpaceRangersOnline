@@ -1,26 +1,22 @@
 
 package frontend;
 
-import Users.AccountService;
+import base.AccountService;
 import constants.CodeResponses;
 import org.json.simple.JSONObject;
-import templater.PageGenerator;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.Map;
-import java.util.HashMap;
-import java.util.Objects;
 
 
 /**
  * Created by К on 27.09.2014.
  */
 public class LogoutServlet extends HttpServlet{
-
     public AccountService accountService;
 
     public LogoutServlet(AccountService accountService) {

@@ -1,7 +1,7 @@
 package frontend;
 
-import Users.AccountService;
 import Users.UserProfile;
+import base.AccountService;
 import base.WebSocketService;
 import org.eclipse.jetty.websocket.api.Session;
 import org.eclipse.jetty.websocket.api.annotations.OnWebSocketClose;
@@ -14,6 +14,7 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import java.util.Date;
+import java.util.Map;
 
 /**
  * Created by Андрей on 19.11.2014.
@@ -21,6 +22,7 @@ import java.util.Date;
 @WebSocket
 public class GameWebSocket {
     private UserProfile userProfile;
+    private boolean profileInited = false;
     private Session session;
     private String sessionId; //Сессия сокета, не эквивалентна веб-сессии
     private AccountService accountService;
@@ -34,8 +36,12 @@ public class GameWebSocket {
         final UserProfile userProfile = accountService.getCurrentUser(sessionId);
         System.out.println("GameWebSocket: UserProfile "+userProfile);
         if (userProfile != null) {
-            final String name = userProfile.getLogin();
             this.userProfile = userProfile;
+            String profileLogin = userProfile.getLogin();
+            Map<String, String> socketSessions = accountService.getSocketSessions();
+            webSocketService.notifyMyLogin(sessionId, profileLogin, socketSessions);
+            accountService.setSocketSessions(socketSessions);
+            this.profileInited = true;
         }
 
         this.webSocketService = webSocketService;
@@ -45,12 +51,24 @@ public class GameWebSocket {
         return sessionId;
     }
 
+    public UserProfile getUserProfile() {
+        return this.userProfile;
+    }
+
     public String getName() {
-        return userProfile.getLogin();
+        if (userProfile != null) {
+            return userProfile.getLogin();
+        } else {
+            return "";
+        }
     }
 
     public int getLocation(){
-        return userProfile.getLocationId();
+        if (userProfile != null) {
+            return userProfile.getLocationId();
+        } else {
+            return 0;
+        }
     }
 
     public void sendJSONObject(JSONObject object) {
@@ -76,27 +94,26 @@ public class GameWebSocket {
             if (userProfile == null) {
                 UserProfile possibleUser = accountService.getCurrentUser(receivedSessionId);
                 if (possibleUser != null) {
-                    String possibleUserLogin = possibleUser.getLogin();
-                    System.out.println("userProfile "+userProfile+" "+possibleUser);
-                    if (userProfile == null) {
-                        userProfile = possibleUser;
-                        accountService.updateUsersSession(receivedSessionId, sessionId);
-                        return false;
-                    } else {
-                        String curUserLogin = userProfile.getLogin();
-                        if (possibleUserLogin.equals(curUserLogin)) {
-                            userProfile = possibleUser;
-                            accountService.updateUsersSession(receivedSessionId, sessionId);
-                            return false;
-                        } else {
-                            return true;
-                        }
+//                    String possibleUserLogin = possibleUser.getLogin();
+//                    System.out.println("userProfile "+userProfile+" "+possibleUser);
+                    userProfile = possibleUser;
+                    accountService.updateUsersSession(receivedSessionId, sessionId);
+                    if (!this.profileInited) {
+                        Map<String, String> socketSessions = accountService.getSocketSessions();
+                        webSocketService.notifyMyLogin(sessionId, userProfile.getLogin(), socketSessions);
+                        this.profileInited = true;
                     }
+                    return false;
 
                 } else {
                     return true;
                 }
             } else {
+                if (!this.profileInited) {
+                    Map<String, String> socketSessions = accountService.getSocketSessions();
+                    webSocketService.notifyMyLogin(sessionId, userProfile.getLogin(), socketSessions);
+                    this.profileInited = true;
+                }
                 return false;
             }
         } else {
@@ -110,7 +127,7 @@ public class GameWebSocket {
         final JSONObject json;
         String receivedSessionId, messageType;
         JSONObject output = new JSONObject();
-        System.out.println("onMessage - " + data.toString());
+//        System.out.println("onMessage - " + data.toString());
         try {
             json = (JSONObject) new JSONParser().parse(data);
             receivedSessionId = json.get("sessionId").toString();
@@ -132,8 +149,11 @@ public class GameWebSocket {
             case "giveOtherShipsCoords":
                 showOtherShips();
                 JSONObject outputOthers = makeNewPlayerNotification(this.userProfile);
-                System.out.println("notify Other players");
-                webSocketService.notifyOtherPlayers(this.userProfile, outputOthers);
+//                System.out.println("notify Other players");
+                webSocketService.notifyOtherPlayers(this.userProfile, outputOthers, false);
+                break;
+            case "fireToEnemy":
+                fireToEnemy(json);
                 break;
         }
 
@@ -141,15 +161,17 @@ public class GameWebSocket {
 
     private void updateMyCoords(JSONObject json){
         JSONObject output = new JSONObject();
-        final float x, y;
+        final float x, y, prevX, prevY;
         try {
             x = Float.parseFloat(json.get("x").toString());
             y = Float.parseFloat(json.get("y").toString());
+            prevX = Float.parseFloat(json.get("curX").toString());
+            prevY = Float.parseFloat(json.get("curY").toString());
         } catch (Exception e){
             parseJSONErrorSend(e);
             return;
         }
-        userProfile.updateCoords(x, y);
+        userProfile.updateCoords(x, y, prevX, prevY);
         //Уведомляем других игроков об изменении своих координат
         JSONObject outputOthers = new JSONObject();
         outputOthers.put("login", userProfile.getLogin());
@@ -158,7 +180,7 @@ public class GameWebSocket {
         outputOthers.put("y", y);
         outputOthers.put("prevX", userProfile.getPrevX());
         outputOthers.put("prevY", userProfile.getPrevY());
-        webSocketService.notifyOtherPlayers(userProfile, outputOthers);
+        webSocketService.notifyOtherPlayers(userProfile, outputOthers, false);
 //        notifyOtherPlayers(outputOthers);
         output.put("type", "OK");
         sendJSONObject(output);
@@ -188,11 +210,9 @@ public class GameWebSocket {
         JSONObject output = new JSONObject();
         output.put("type", "otherShips");
         JSONArray ships = new JSONArray();
-        System.out.println("showOther ships accountService.sessions "+accountService.sessions.toString());
         Date date = new Date();
-        //accountService.sessions.keySet() заменена на users для того, чтобы тестировать коллекции других игроков
-        for (String key : accountService.sessions.keySet()) {
-            UserProfile otherUser = accountService.sessions.get(key);
+        for (String key :  accountService.getSessions().keySet()) {
+            UserProfile otherUser = accountService.getSessions().get(key);
             if (userProfile.getLocationId() == otherUser.getLocationId() && !userProfile.getLogin().equals(otherUser.getLogin())) {
                 JSONObject ship = new JSONObject();
                 ship.put("login", otherUser.getLogin());
@@ -206,8 +226,21 @@ public class GameWebSocket {
             }
         }
         output.put("ships", ships);
-        System.out.println("showOtherShips output "+output.toString());
+//        System.out.println("showOtherShips output "+output.toString());
         sendJSONObject(output);
+    }
+
+    private void fireToEnemy(JSONObject json){
+        String victimLogin = "";
+        int gunId = 0;
+        try {
+            victimLogin = json.get("victimLogin").toString();
+            gunId = Integer.parseInt(json.get("gunId").toString());
+        } catch (Exception e){
+            parseJSONErrorSend(e);
+            return;
+        }
+        webSocketService.fireToEnemy(userProfile, victimLogin, gunId, accountService);
     }
 
     //Отправить ошибку о проблемах с сессией
@@ -221,7 +254,7 @@ public class GameWebSocket {
     //Отправить ошибку о проблеме с парсингом полученного запроса
     private void parseJSONErrorSend(Exception e){
         JSONObject output = new JSONObject();
-        System.out.println("Error JSON "+e.toString());
+//        System.out.println("Error JSON "+e.toString());
         output.put("type", "error");
         output.put("error", "parsingJson");
         output.put("exception", e.toString());
@@ -231,7 +264,7 @@ public class GameWebSocket {
     //Колбек на открытие сокета
     @OnWebSocketConnect
     public void onOpen(Session session) {
-        System.out.println("Socket Opened "+sessionId);
+//        System.out.println("Socket Opened "+sessionId);
         this.session = session;
         webSocketService.addUserSocket(this);
     }
@@ -240,6 +273,6 @@ public class GameWebSocket {
     @OnWebSocketClose
     public void onClose(int statusCode, String reason) {
         webSocketService.removeSocket(this);
-        System.out.println("onClose Socket");
+//        System.out.println("onClose Socket");
     }
 }

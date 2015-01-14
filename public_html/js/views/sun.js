@@ -44,17 +44,18 @@ define([
             this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
             this.ctx.drawImage(resources.get('/images/sun.png'), this.model.getPosition().x, this.model.getPosition().y, 320, 320);
             this.ctx.restore();
-            if (Math.abs(this.xSpeed) >= Math.abs(this.ySpeed)) {
-                this.targetX -= this.xSpeed / Math.abs(this.xSpeed) *2;
-                this.targetY -= this.ySpeed / Math.abs(this.ySpeed) * Math.abs(this.ySpeed/this.xSpeed)*2;
-                this.model.changeX(this.xSpeed / Math.abs(this.xSpeed) *2);
-                this.model.changeY(this.ySpeed / Math.abs(this.ySpeed) * Math.abs(this.ySpeed/this.xSpeed)*2);
-            }
-            else {
-                this.model.changeY(this.ySpeed / Math.abs(this.ySpeed)*2);
-                this.targetY -= this.ySpeed / Math.abs(this.ySpeed)*2;
-                this.model.changeX(this.xSpeed / Math.abs(this.xSpeed) * Math.abs(this.xSpeed/this.ySpeed)*2);
-                this.targetX -= this.xSpeed / Math.abs(this.xSpeed) * Math.abs(this.xSpeed/this.ySpeed)*2;
+            if(this.ySpeed != 0 && this.xSpeed != 0){
+                if (Math.abs(this.xSpeed) >= Math.abs(this.ySpeed)) {
+                    this.targetX -= this.xSpeed / Math.abs(this.xSpeed) *2;
+                    this.targetY -= this.ySpeed / Math.abs(this.ySpeed) * Math.abs(this.ySpeed/this.xSpeed)*2;
+                    this.model.changeX(this.xSpeed / Math.abs(this.xSpeed) *2);
+                    this.model.changeY(this.ySpeed / Math.abs(this.ySpeed) * Math.abs(this.ySpeed/this.xSpeed)*2);
+                } else {
+                    this.model.changeY(this.ySpeed / Math.abs(this.ySpeed)*2);
+                    this.targetY -= this.ySpeed / Math.abs(this.ySpeed)*2;
+                    this.model.changeX(this.xSpeed / Math.abs(this.xSpeed) * Math.abs(this.xSpeed/this.ySpeed)*2);
+                    this.targetX -= this.xSpeed / Math.abs(this.xSpeed) * Math.abs(this.xSpeed/this.ySpeed)*2;
+                }
             }
             if ((Math.abs(this.targetX) < 2) && (Math.abs(this.targetY) < 2)) {
                 this.trigger('move:done', ['moveSun', 'move']);
