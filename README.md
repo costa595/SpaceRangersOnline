@@ -9,7 +9,7 @@
 
 Рассказов Константин beatl40@yandex.ru
 
-Дорофеев Дмитрий dmitrydorofeev me@dmitrydorofeev.ru
+Пахомов Борис   
 
-Кобзистый Константин
+Чижиков Михаил
 
