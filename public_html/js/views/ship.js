@@ -18,9 +18,9 @@ define([
             $(document).bind('keydown', _.bind(this.keyDown, this));
             $(document).bind('keypress', _.bind(this.keyPress, this));
             
-            // _.bindAll(this, 'handelMotion');
-            // $(document).bind('deviceorientation', _.bind(this.handelMotion, this));
-            // window.addEventListener('deviceorientation', this.handelMotion);
+            _.bindAll(this, 'handelMotion');
+            $(document).bind('deviceorientation', _.bind(this.handelMotion, this));
+            window.addEventListener('deviceorientation', this.handelMotion);
 
             $(window).bind("keydown", function(e) {
                 if ([37, 38, 39, 40].indexOf(e.keyCode) > -1) {
@@ -40,7 +40,7 @@ define([
                 x: this.el.width / 2 - 35,
                 y: this.el.height / 2 - 35
             };
-            this.angle = 0; //Угол, на который повернут
+            this.angle = 0; //РЈРіРѕР», РЅР° РєРѕС‚РѕСЂС‹Р№ РїРѕРІРµСЂРЅСѓС‚
             this.inMove = false;
             this.loaded = false;
 
@@ -54,17 +54,17 @@ define([
 
             this.selectedEnemyLogin = false;
             this.shot = {
-                x: 0, //Текущие координаты
+                x: 0, //РўРµРєСѓС‰РёРµ РєРѕРѕСЂРґРёРЅР°С‚С‹
                 y: 0,
-                targetX: 0, //Конечная координата
+                targetX: 0, //РљРѕРЅРµС‡РЅР°СЏ РєРѕРѕСЂРґРёРЅР°С‚Р°
                 targetY: 0,
-                xSpeed: 0, //Скорость
+                xSpeed: 0, //РЎРєРѕСЂРѕСЃС‚СЊ
                 ySpeed: 0,
-                gunRadius: 0, //Радиус действия оружия. Если пуля вдруг дальше, то не рендерить ее
-                interval: null, //Интеравал для анимации
+                gunRadius: 0, //Р Р°РґРёСѓСЃ РґРµР№СЃС‚РІРёСЏ РѕСЂСѓР¶РёСЏ. Р•СЃР»Рё РїСѓР»СЏ РІРґСЂСѓРі РґР°Р»СЊС€Рµ, С‚Рѕ РЅРµ СЂРµРЅРґРµСЂРёС‚СЊ РµРµ
+                interval: null, //РРЅС‚РµСЂР°РІР°Р» РґР»СЏ Р°РЅРёРјР°С†РёРё
                 init: function(targetX, targetY, gunRadius) {
                     clearInterval(this.interval);
-                    var shipHalthSize = 100 / 2; //Половина корабля
+                    var shipHalthSize = 100 / 2; //РџРѕР»РѕРІРёРЅР° РєРѕСЂР°Р±Р»СЏ
                     this.x = 0;
                     this.y = 0;
                     this.targetX = targetX + shipHalthSize;
@@ -135,7 +135,7 @@ this.targetY = targetY + shipHalthSize;
 
             });
 
-            //Проверка на наличие объекта под кликом
+            //РџСЂРѕРІРµСЂРєР° РЅР° РЅР°Р»РёС‡РёРµ РѕР±СЉРµРєС‚Р° РїРѕРґ РєР»РёРєРѕРј
             var modelCenter = this.model.getCenter();
             var isMoveEvent = true;
             var that = this;
@@ -157,13 +157,13 @@ this.targetY = targetY + shipHalthSize;
                 this.move(event);
             }
         },
-        move: function(event) {
+        move: function(event, angle) {
             this.model.setClickCoords({
                 x: event.pageX,
                 y: event.pageY
             });
 
-            this.rotate(event);
+            this.rotate(event, angle);
             this.inMove = true;
         },
         moveDone: function() {
@@ -181,10 +181,16 @@ this.targetY = targetY + shipHalthSize;
             //     ctx.restore();
             // }
         },
-        rotate: function(event) {
+        rotate: function(event, angle) {
+            console.log('ROTATE =', event)
             this.ctx.clearRect(-35, -35, 70, 70);
             this.ctx.save();
-            var newAngle = Math.atan2(event.pageY - this.el.height / 2, event.pageX - this.el.width / 2) + Math.PI / 2;
+            if(angle == null) {
+                var newAngle = Math.atan2(event.pageY - this.el.height / 2, event.pageX - this.el.width / 2) + Math.PI / 2;
+            } else {
+                var newAngle = angle;
+            }
+            
             this.ctx.rotate(newAngle);
             this.angle = 0;
             // this.ctx.drawImage(this.image, -35, -35, 70, 70);
@@ -203,39 +209,59 @@ this.targetY = targetY + shipHalthSize;
                 this.movements.right = false;
             }
         },
-        //--------------------------------------для управление гироскопом (все работает, просто нам нахер это не нужно)
-        // handelMotion: function(event) {
-        //     var xAng = event.beta,
-        //         yAng = event.gamma,
-        //         pageX = 1,
-        //         pageY = 1;
+        handelMotion: function(event) {
+            console.log(event)
+            var xAng = event.beta,
+                yAng = event.gamma,
+                rotateAng = event.alpha,
+                pageX = 1,
+                pageY = 1;
 
-        //     var curPosX = shipModel.center.x,
-        //         curPosY = shipModel.center.y;
+            var curPosX = shipModel.center.x,
+                curPosY = shipModel.center.y;
 
-        //     var handleEvent = false;
+            var handleEvent = false;
 
-        //     if(yAng > 0) {
-        //         this.movements.right = true;
-        //         pageY = shipModel.center.y + pageY;
-        //         pageX = shipModel.center.x + this.disKoef;
-        //         handleEvent = true;
-        //         console.log(pageX, pageY)
-        //     }
-        //     if (handleEvent) {
-        //         var ev = new Object();
-        //         ev.pageY = pageY;
-        //         ev.pageX = pageX;
-        //         this.move(ev);
-        //         this.inMove = false;
-        //     }
+            if(Math.abs(yAng) > Math.abs(xAng)) {
+                if(yAng > 0) {
+                    this.movements.right = true;
+                    pageY = shipModel.center.y + pageY;
+                    pageX = shipModel.center.x + this.disKoef;
+                    handleEvent = true;
+                } else if(yAng < 0) {
+                    this.movements.left = true;
+                    pageY = shipModel.center.y - pageY;
+                    pageX = shipModel.center.x - this.disKoef;
+                    handleEvent = true;
+                }
+            } else {
+                if(xAng < 0) {
+                    this.movements.top = true;
+                    pageY = this.model.center.y - this.disKoef;
+                    pageX = this.model.center.x - pageX;
+                    handleEvent = true;
+                } else if(xAng > 0) {
+                    this.movements.bottom = true;
+                    pageY = this.model.center.y + this.disKoef;
+                    pageX = this.model.center.x + pageX;
+                    handleEvent = true;
+                }
+            }
 
-        // },
+            if (handleEvent) {
+                var ev = new Object();
+                ev.pageY = pageY;
+                ev.pageX = pageX;
+                this.move(ev,rotateAng);
+                this.inMove = false;
+            }
+
+        },
         keyDown: function(event) {
 
             var pageX = 1,
                 pageY = 1;
-            var handleEvent = false; //Обрабатыватьс обятие или нет? Без этого корабль летит в неикуда
+            var handleEvent = false; //РћР±СЂР°Р±Р°С‚С‹РІР°С‚СЊСЃ РѕР±СЏС‚РёРµ РёР»Рё РЅРµС‚? Р‘РµР· СЌС‚РѕРіРѕ РєРѕСЂР°Р±Р»СЊ Р»РµС‚РёС‚ РІ РЅРµРёРєСѓРґР°
             if (event.keyCode == 87 || event.keyCode == 38) {
                 this.movements.top = true;
                 pageY = this.model.center.y - this.disKoef;
@@ -266,7 +292,7 @@ this.targetY = targetY + shipHalthSize;
             }
         },
         keyPress: function(event) {
-            //Стрельба
+            //РЎС‚СЂРµР»СЊР±Р°
             if ([49, 50, 51, 52, 53].indexOf(event.keyCode) > -1) {
                 if (this.selectedEnemyLogin != '') {
                     var gunId = event.keyCode - 48;
@@ -275,7 +301,7 @@ this.targetY = targetY + shipHalthSize;
 
             }
         },
-        doFire: function(gunId) { //Сделать выстрел, id - номре пушки
+        doFire: function(gunId) { //РЎРґРµР»Р°С‚СЊ РІС‹СЃС‚СЂРµР», id - РЅРѕРјСЂРµ РїСѓС€РєРё
             var weapon = userModel.get('w' + gunId);
             var that = this;
             if (weapon.id != 0) {
@@ -287,12 +313,12 @@ this.targetY = targetY + shipHalthSize;
 
                 var distance = Math.sqrt(Math.pow(enemyPosition.x, 2) + Math.pow(enemyPosition.y, 2));
                 if (distance < weapon.radius) {
-                    //Анимая пули
+                    //РђРЅРёРјР°СЏ РїСѓР»Рё
                     this.shot.init(enemyPosition.x, enemyPosition.y, weapon.radius);
                     this.shot.interval = setInterval(function() {
                         that.animateShot();
                     }, 5);
-                    //Передаем данные о выстреле
+                    //РџРµСЂРµРґР°РµРј РґР°РЅРЅС‹Рµ Рѕ РІС‹СЃС‚СЂРµР»Рµ
                     var connection = this.model.get('connection');
                     connection.send(JSON.stringify({
                         type: "fireToEnemy",
@@ -383,7 +409,7 @@ this.targetY = targetY + shipHalthSize;
 //                 x: this.el.width / 2 - 35,
 //                 y: this.el.height / 2 - 35
 //             };
-//             this.angle = 0; //Угол, на который повернут
+//             this.angle = 0; //РЈРіРѕР», РЅР° РєРѕС‚РѕСЂС‹Р№ РїРѕРІРµСЂРЅСѓС‚
 //             this.inMove = false;
 //             this.loaded = false;
 
@@ -397,17 +423,17 @@ this.targetY = targetY + shipHalthSize;
 
 //             this.selectedEnemyLogin = false;
 //             this.shot = {
-//                 x: 0, //Текущие координаты
+//                 x: 0, //РўРµРєСѓС‰РёРµ РєРѕРѕСЂРґРёРЅР°С‚С‹
 //                 y: 0,
-//                 targetX: 0, //Конечная координата
+//                 targetX: 0, //РљРѕРЅРµС‡РЅР°СЏ РєРѕРѕСЂРґРёРЅР°С‚Р°
 //                 targetY: 0,
-//                 xSpeed: 0, //Скорость
+//                 xSpeed: 0, //РЎРєРѕСЂРѕСЃС‚СЊ
 //                 ySpeed: 0,
-//                 gunRadius: 0, //Радиус действия оружия. Если пуля вдруг дальше, то не рендерить ее
-//                 interval: null, //Интеравал для анимации
+//                 gunRadius: 0, //Р Р°РґРёСѓСЃ РґРµР№СЃС‚РІРёСЏ РѕСЂСѓР¶РёСЏ. Р•СЃР»Рё РїСѓР»СЏ РІРґСЂСѓРі РґР°Р»СЊС€Рµ, С‚Рѕ РЅРµ СЂРµРЅРґРµСЂРёС‚СЊ РµРµ
+//                 interval: null, //РРЅС‚РµСЂР°РІР°Р» РґР»СЏ Р°РЅРёРјР°С†РёРё
 //                 init: function(targetX, targetY, gunRadius) {
 //                     clearInterval(this.interval);
-//                     var shipHalthSize = 100 / 2; //Половина корабля
+//                     var shipHalthSize = 100 / 2; //РџРѕР»РѕРІРёРЅР° РєРѕСЂР°Р±Р»СЏ
 //                     this.x = 0;
 //                     this.y = 0;
 //                     this.targetX = targetX + shipHalthSize;
@@ -494,7 +520,7 @@ this.targetY = targetY + shipHalthSize;
 //             }, 1000);
 //         },
 //         clickHandler: function(event) {
-//             //Проверка на наличие объекта под кликом
+//             //РџСЂРѕРІРµСЂРєР° РЅР° РЅР°Р»РёС‡РёРµ РѕР±СЉРµРєС‚Р° РїРѕРґ РєР»РёРєРѕРј
 //             var modelCenter = this.model.getCenter();
 //             var isMoveEvent = true;
 //             var that = this;
@@ -566,7 +592,7 @@ this.targetY = targetY + shipHalthSize;
 
 //             var pageX = 1,
 //                 pageY = 1;
-//             var handleEvent = false; //Обрабатыватьс обятие или нет? Без этого корабль летит в неикуда
+//             var handleEvent = false; //РћР±СЂР°Р±Р°С‚С‹РІР°С‚СЊСЃ РѕР±СЏС‚РёРµ РёР»Рё РЅРµС‚? Р‘РµР· СЌС‚РѕРіРѕ РєРѕСЂР°Р±Р»СЊ Р»РµС‚РёС‚ РІ РЅРµРёРєСѓРґР°
 //             if (event.keyCode == 87 || event.keyCode == 38) {
 //                 this.movements.top = true;
 //                 pageY = this.model.center.y - this.disKoef;
@@ -597,7 +623,7 @@ this.targetY = targetY + shipHalthSize;
 //             }
 //         },
 //         keyPress: function(event) {
-//             //Стрельба
+//             //РЎС‚СЂРµР»СЊР±Р°
 
 //             if ([49, 50, 51, 52, 53].indexOf(event.keyCode) > -1) {
 //                 if (this.selectedEnemyLogin != '') {
@@ -607,7 +633,7 @@ this.targetY = targetY + shipHalthSize;
 
 //             }
 //         },
-//         doFire: function(gunId) { //Сделать выстрел, id - номре пушки
+//         doFire: function(gunId) { //РЎРґРµР»Р°С‚СЊ РІС‹СЃС‚СЂРµР», id - РЅРѕРјСЂРµ РїСѓС€РєРё
 //             var weapon = userModel.get('w' + gunId);
 //             var that = this;
 //             if (weapon.id != 0) {
@@ -619,12 +645,12 @@ this.targetY = targetY + shipHalthSize;
 
 //                 var distance = Math.sqrt(Math.pow(enemyPosition.x, 2) + Math.pow(enemyPosition.y, 2));
 //                 if (distance < weapon.radius) {
-//                     //Анимая пули
+//                     //РђРЅРёРјР°СЏ РїСѓР»Рё
 //                     this.shot.init(enemyPosition.x, enemyPosition.y, weapon.radius);
 //                     this.shot.interval = setInterval(function() {
 //                         that.animateShot();
 //                     }, 5);
-//                     //Передаем данные о выстреле
+//                     //РџРµСЂРµРґР°РµРј РґР°РЅРЅС‹Рµ Рѕ РІС‹СЃС‚СЂРµР»Рµ
 //                     var connection = this.model.get('connection');
 //                     connection.send(JSON.stringify({
 //                         type: "fireToEnemy",
